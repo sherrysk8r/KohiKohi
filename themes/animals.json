@@ -1,0 +1,15 @@
+{
+	"animals":[
+    {"animal_name":"dog", "pluralize":"dogs", "image":""},
+    {"animal_name":"cat", "pluralize":"cats", "image":""},
+    {"animal_name":"cow", "pluralize":"cows", "image":""},    
+    {"animal_name":"horse", "pluralize":"horses", "image":""},
+    {"animal_name":"rabbit", "pluralize":"rabbits", "image":""},
+    {"animal_name":"fish", "pluralize":"fish", "image":""},
+    {"animal_name":"bird", "pluralize":"birds", "image":""},
+    {"animal_name":"bear", "pluralize":"bears", "image":""},
+    {"animal_name":"giraffe", "pluralize":"giraffes", "image":""},
+    {"animal_name":"elephant", "pluralize":"elephants", "image":""},
+    {"animal_name":"penguin", "pluralize":"penguins", "image":""},
+	]
+}
