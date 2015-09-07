@@ -1,8 +1,47 @@
 html {
     font-family: 'Poiret One', cursive;
     font-size: 17px;
+    background-color: rgb(26, 139, 255);
 }
 
 #header{
 	font-size: 30px;
+	color: white;
+}
+
+#main-form{
+	background-color: white;
+}
+
+
+/* label color */
+.question-label{
+	color: rgb(26, 139, 255);
+	font-weight: 900;
+}
+.select-wrapper input.select-dropdown {
+	border-bottom: 1px solid rgb(26, 139, 255);
+}
+
+.select-wrapper span.caret {
+	color: rgb(26, 139, 255);
+}
+
+.dropdown-content>li>span{
+	background-color: white;
+	color: rgb(26, 139, 255);
+}
+
+.to-valign {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#header{
+	margin-bottom: 15px;
+}
+
+.form-submit-btn{
+	background-color: rgb(1,247,54);
 }
