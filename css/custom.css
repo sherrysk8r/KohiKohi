@@ -45,3 +45,19 @@ html {
 .form-submit-btn{
 	background-color: rgb(1,247,54);
 }
+/******/
+.nav-wrapper{
+	background-color: rgb(0,185,230);
+}
+.timer{
+	background-color: #b2ff59;
+	height: 150px;
+}
+.calcInput{
+	background-color: white;
+	height: 100px;
+}
+.calc{
+	background-color: gray;
+	height: 250px;
+}
