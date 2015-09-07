@@ -44,4 +44,11 @@ html {
 
 .form-submit-btn{
 	background-color: rgb(1,247,54);
+	margin-bottom: 15px;
+	font-weight: 900;
+	font-size: 22;
+}
+
+.form-submit-btn:hover{
+	background-color: #00e622;
 }
