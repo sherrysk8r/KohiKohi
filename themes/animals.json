@@ -10,6 +10,6 @@
     {"animal_name":"bear", "pluralize":"bears", "image":""},
     {"animal_name":"giraffe", "pluralize":"giraffes", "image":""},
     {"animal_name":"elephant", "pluralize":"elephants", "image":""},
-    {"animal_name":"penguin", "pluralize":"penguins", "image":""},
+    {"animal_name":"penguin", "pluralize":"penguins", "image":""}
 	]
 }
