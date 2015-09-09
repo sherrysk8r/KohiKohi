@@ -59,20 +59,21 @@ html {
 
 .timer{
 	background-color: #b2ff59;
-	height: 125px;
+	height: 15%;
 }
 
 .calcInput{
 	background-color: white;
-	height: 100px;
+	height: 15%;
 }
 #whiteFish{
 	margin-top: 13px;
 	height:25px;
 }
 .calc{
-	background-color: gray;
-	height: 350px;
+	background-color: #bdbdbd;
+	height: 45%;
+	font-size: 2em;
 }
 .question-buttons{
 	margin: 40px 20px 40px 150px;
@@ -88,5 +89,17 @@ html {
 }
 .calc-submit{
 	background-color: #b2ff59;
-	height:75px;
+	height:25%;
+	font-size: 3.5em;
+	font-weight: 900;
+	color: white;
+}
+.calc-input{
+	padding: 1em;
+	margin-top: 2em;
+	font-weight: 900;
+	color: white;
+}
+#calculator{
+	margin: .5em 0em;
 }
