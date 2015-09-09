@@ -65,7 +65,7 @@ function generateQuestion(){
             // //Dsiplay the question in the box 
             // console.log("Question: " + question_completed);
             // console.log("Answer: " + answer);
-            displayText += "<p class='center-align'>" + question_completed + "<\/p>";
+            displayText = "<p class='center-align'>" + question_completed + "<\/p>";
             $("#question-box").html(displayText);
     } ); // getJSON
 }
@@ -181,9 +181,12 @@ function checkAnswer(){
     console.log(userInput);
     console.log(correctAnswer == userInput);
     if (correctAnswer == userInput){
-        window.alert("Correct!")
+        window.alert("Correct!");
     }
     else{
         window.alert("Not quite. The correct answer is " + correctAnswer);
     }
+    generateQuestion();
+    userInput = null;
+    displayUserInput(userInput);
 }
