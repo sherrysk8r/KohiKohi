@@ -5,12 +5,11 @@ displayText = "";
 //Aray stores all the numbers generated in the question 
 nums = [];
 
-$(function() {    // do once original document loaded and ready
-    $('#animal_theme').click(function() {
-        $.getJSON("themes/animals.json", function(responseObject, diditwork) {
+//Load question into question space as soon as the document is ready
+$(document).ready(function() {
+    $.getJSON("themes/animals.json", function(responseObject, diditwork) {
             // console.log(diditwork);
             nums = [];
-            displayText = "<p><b>Generated Question</b></p><p>";
             //Randomly select a question from the repository
             var randomizedQuestionIndex = Math.floor(Math.random() * responseObject.questions.length);
             question = responseObject.questions[randomizedQuestionIndex];
@@ -23,11 +22,11 @@ $(function() {    // do once original document loaded and ready
             //Calculate the answer
             answer = computerAnswer(question);
             console.log("Answer: " + answer);
-            displayText += question_completed + "<\/p>";
-            // $("#question-area").html(displayText);
+            displayText += "<p>" + question_completed + "<\/p>";
+            $("#question-box").html(displayText);
         } ); // getJSON
-    } );  // click
-  } ); // onReady
+});
+
 
 
 //Fills in a question template 
