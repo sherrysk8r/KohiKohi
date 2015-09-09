@@ -1,5 +1,6 @@
 html {
-    font-family: 'Poiret One', cursive;
+/*    font-family: 'Poiret One', cursive;*/
+	font-family: 'Montserrat', sans-serif;
     font-size: 17px;
     background-color: rgb(26, 139, 255);
 }
@@ -102,7 +103,7 @@ html {
 
 .calc-submit{
 	background-color: #b2ff59;
-	height:25%;
+/*	height:25%;*/
 	font-size: 3.5em;
 	font-weight: 900;
 	color: white;
