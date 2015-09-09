@@ -10,9 +10,20 @@ nums = [];
 //Load question into question space as soon as the document is ready
 $(document).ready(function() {
     generateQuestion();
-
-    // if user clicks on 
+    // Listeners
+    $( "#text_question" ).click(displayTextQuestion);
+    $( "#equation" ).click(displayEquation);
 });
+
+function displayTextQuestion(){
+    displayText = "<p>" + question_form[0] + "<\/p>";
+    $("#question-box").html(displayText);
+}
+
+function displayEquation(){
+    displayText = "<p>" + question_form[1] + "<\/p>";
+    $("#question-box").html(displayText);
+}
 
 function generateQuestion(){
     $.getJSON("themes/animals.json", function(responseObject, diditwork) {
@@ -27,7 +38,8 @@ function generateQuestion(){
             question_completed = fillInQuestionTemplate(question);
             //Store the question forms (word problem, equation)
             question_form.push(question_completed);
-            console.log(question_form);
+            var equation_form = generateEquation(question);
+            question_form.push(equation_form);
             //Calculate the answer
             answer = computerAnswer(question);
             //Dsiplay the question in the box 
@@ -40,6 +52,18 @@ function generateQuestion(){
 
 
 
+//Return the qurstion in equation form
+function generateEquation(question){
+    var equation = "";
+    equation += question.starting_num + " "; //Start Number
+    //Append the operation to the equation 
+    equation += question.operation + " ";
+    //Append the number on which the operation will be applied on (base case, to expand on later)
+    equation += nums[0] + " ";
+    //Finish off the equation
+    equation += "= ?";
+    return equation;
+}
 
 //Fills in a question template 
 function fillInQuestionTemplate(question){
