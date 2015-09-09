@@ -13,10 +13,12 @@ $(document).ready(function() {
     generateQuestion();
     // Listeners
     $( "#text_question" ).click(displayTextQuestion);
+    $( "#whiteFish ").click(displayIconView);
     $( "#equation" ).click(displayEquation);
     $( ".calc-input ").click(function(){
         userCalcInput($(this).text());        
     });
+    $( ".calc-submit" ).click(checkAnswer);
 });
 
 function displayTextQuestion(){
@@ -27,6 +29,10 @@ function displayTextQuestion(){
 function displayEquation(){
     displayText = "<p class='equation-form center-align'>" + question_form[1] + "<\/p>";
     $("#question-box").html(displayText);
+}
+
+function displayIconView(){
+
 }
 
 function displayUserInput(userInput){
@@ -54,11 +60,11 @@ function generateQuestion(){
             question_form.push(question_completed);
             var equation_form = generateEquation(question);
             question_form.push(equation_form);
-            //Calculate the answer
-            answer = computerAnswer(question);
-            //Dsiplay the question in the box 
-            console.log("Question: " + question_completed);
-            console.log("Answer: " + answer);
+            // //Calculate the answer
+            // answer = computerAnswer(question);
+            // //Dsiplay the question in the box 
+            // console.log("Question: " + question_completed);
+            // console.log("Answer: " + answer);
             displayText += "<p class='center-align'>" + question_completed + "<\/p>";
             $("#question-box").html(displayText);
     } ); // getJSON
@@ -166,5 +172,18 @@ function userCalcInput(inputValue){
         sUserInput += inputValue;
         userInput = parseInt(sUserInput);
         displayUserInput(userInput);
+    }
+}
+
+function checkAnswer(){
+    correctAnswer = computerAnswer(question);
+    console.log(correctAnswer);
+    console.log(userInput);
+    console.log(correctAnswer == userInput);
+    if (correctAnswer == userInput){
+        window.alert("Correct!")
+    }
+    else{
+        window.alert("Not quite. The correct answer is " + correctAnswer);
     }
 }
