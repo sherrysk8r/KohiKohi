@@ -7,9 +7,9 @@
         {"animal_name":"bear", "pluralize":"bears", "image":""}
 	],
     "questions":[
-        {"question":"Tommy owns a farm with 3 ANIMAL1. Yesterday, Tommy's ANIMAL1 gave birth to # ANIMAL1. How many ANIMAL1 does Tommy have now?",
+        {"question":"Tommy owns a farm with 3 ANIMAL1. Yesterday, Tommy bought # more ANIMAL1. How many ANIMAL1 does Tommy have now?",
          "num_animals_needed":1, "num_times_used":0, "starting_num":3, "operation":"+"},
-        {"question":"Bobby went to the animal shelter and adopted # ANIMAL1 . Bobby already has a bunny and a goldfish. How many pets does Bobby have now?", 
+        {"question":"Bobby went to the animal shelter and adopted # ANIMAL1. Bobby already has a bunny and a goldfish. How many pets does Bobby have now?", 
         "num_animals_needed":1, "num_times_used":0, "starting_num":2, "operation":"+"} 
     ]
 }

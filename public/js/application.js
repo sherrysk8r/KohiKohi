@@ -2,15 +2,22 @@
 question = "";
 animals = [];
 displayText = "";
+//Stores the different question forms 
+question_form =[]; 
 //Aray stores all the numbers generated in the question 
 nums = [];
 
-$(function() {    // do once original document loaded and ready
-    $('#animal_theme').click(function() {
-        $.getJSON("themes/animals.json", function(responseObject, diditwork) {
+//Load question into question space as soon as the document is ready
+$(document).ready(function() {
+    generateQuestion();
+
+    // if user clicks on 
+});
+
+function generateQuestion(){
+    $.getJSON("themes/animals.json", function(responseObject, diditwork) {
             // console.log(diditwork);
             nums = [];
-            displayText = "<p><b>Generated Question</b></p><p>";
             //Randomly select a question from the repository
             var randomizedQuestionIndex = Math.floor(Math.random() * responseObject.questions.length);
             question = responseObject.questions[randomizedQuestionIndex];
@@ -18,16 +25,20 @@ $(function() {    // do once original document loaded and ready
             animals = responseObject.animals;
             //Fill in & update the question
             question_completed = fillInQuestionTemplate(question);
-            //Display the question
-            console.log("Question: " + question_completed);
+            //Store the question forms (word problem, equation)
+            question_form.push(question_completed);
+            console.log(question_form);
             //Calculate the answer
             answer = computerAnswer(question);
+            //Dsiplay the question in the box 
+            console.log("Question: " + question_completed);
             console.log("Answer: " + answer);
-            displayText += question_completed + "<\/p>";
-            // $("#question-area").html(displayText);
-        } ); // getJSON
-    } );  // click
-  } ); // onReady
+            displayText += "<p>" + question_completed + "<\/p>";
+            $("#question-box").html(displayText);
+    } ); // getJSON
+}
+
+
 
 
 //Fills in a question template 
@@ -79,7 +90,7 @@ function computerAnswer(question){
     var current_total = 0; 
     //depending on the operations, do the following:
     if(question.operation === "+"){
-        console.log("Addition!");
+        // console.log("Addition!");
         current_total = addToStart(question.starting_num, nums);
     }
     return current_total;
