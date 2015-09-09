@@ -66,6 +66,11 @@ html {
 	background-color: white;
 	height: 15%;
 }
+.calcInput p{
+	font-size: 2em;
+	margin-left: auto;
+	margin-right: auto;
+}
 #whiteFish{
 	margin-top: 13px;
 	height:25px;
@@ -89,10 +94,10 @@ html {
 }
 
 .question-area p{
-	color: orange;
+	color: black;
 	padding: 5%;
-	font-size: 1.5em;
-	font-weight: 800;
+	font-size: 2em;
+	font-weight: 900;
 }
 
 .calc-submit{
@@ -103,11 +108,14 @@ html {
 	color: white;
 }
 .calc-input{
-	padding: 1em;
-	margin-top: 2em;
 	font-weight: 900;
 	color: white;
 }
 #calculator{
 	margin: .5em 0em;
+}
+p.equation-form{
+	font-size: 5em;
+	margin-left: auto;
+	margin-right: auto;
 }

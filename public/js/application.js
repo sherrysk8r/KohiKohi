@@ -6,6 +6,7 @@ displayText = "";
 question_form =[]; 
 //Aray stores all the numbers generated in the question 
 nums = [];
+userInput = null;
 
 //Load question into question space as soon as the document is ready
 $(document).ready(function() {
@@ -13,16 +14,29 @@ $(document).ready(function() {
     // Listeners
     $( "#text_question" ).click(displayTextQuestion);
     $( "#equation" ).click(displayEquation);
+    $( ".calc-input ").click(function(){
+        userCalcInput($(this).text());        
+    });
 });
 
 function displayTextQuestion(){
-    displayText = "<p>" + question_form[0] + "<\/p>";
+    displayText = "<p class='center-align'>" + question_form[0] + "<\/p>";
     $("#question-box").html(displayText);
 }
 
 function displayEquation(){
-    displayText = "<p>" + question_form[1] + "<\/p>";
+    displayText = "<p class='equation-form center-align'>" + question_form[1] + "<\/p>";
     $("#question-box").html(displayText);
+}
+
+function displayUserInput(userInput){
+    if (!isNaN(userInput) & userInput != null){
+        displayText = "<p>" + userInput + "<\/p>";
+    }
+    else{
+        displayText = "<p> <\/p>";
+    }
+    $(".calcInput").html(displayText);
 }
 
 function generateQuestion(){
@@ -45,7 +59,7 @@ function generateQuestion(){
             //Dsiplay the question in the box 
             console.log("Question: " + question_completed);
             console.log("Answer: " + answer);
-            displayText += "<p>" + question_completed + "<\/p>";
+            displayText += "<p class='center-align'>" + question_completed + "<\/p>";
             $("#question-box").html(displayText);
     } ); // getJSON
 }
@@ -129,4 +143,28 @@ function addToStart(start, num_array){
     return total;
 }
 
-
+function userCalcInput(inputValue){
+    if (userInput == null){
+        if (inputValue != "keyboard_backspace" ){
+            userInput = inputValue;
+            displayUserInput(userInput);
+        }
+    }
+    else if (inputValue == "keyboard_backspace"){
+        var sUserInput = userInput.toString();
+        sUserInput = sUserInput.slice(0,-1);
+        if (sUserInput.length == 0){
+            userInput = null;
+        }
+        else{
+            userInput = parseInt(sUserInput);
+        }
+        displayUserInput(userInput);
+    }
+    else{
+        var sUserInput = userInput.toString();
+        sUserInput += inputValue;
+        userInput = parseInt(sUserInput);
+        displayUserInput(userInput);
+    }
+}
