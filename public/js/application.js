@@ -4,7 +4,7 @@ animals = [];
 displayText = "";
 //Stores the different question forms 
 question_form =[]; 
-//Aray stores all the numbers generated in the question 
+//Array stores all the numbers generated in the question 
 nums = [];
 userInput = null;
 
@@ -13,7 +13,7 @@ $(document).ready(function() {
     generateQuestion();
     // Listeners
     $( "#text_question" ).click(displayTextQuestion);
-    $( "#whiteFish ").click(displayIconView);
+    $( "#icon_view ").click(displayIconView);
     $( "#equation" ).click(displayEquation);
     $( ".calc-input ").click(function(){
         userCalcInput($(this).text());        
@@ -32,7 +32,7 @@ function displayEquation(){
 }
 
 function displayIconView(){
-
+    displayText = "<div class='col s4'></div><div class='col s4'></div>";
 }
 
 function displayUserInput(userInput){
@@ -46,6 +46,7 @@ function displayUserInput(userInput){
 }
 
 function generateQuestion(){
+    question_form = [];
     $.getJSON("themes/animals.json", function(responseObject, diditwork) {
             // console.log(diditwork);
             nums = [];
@@ -96,7 +97,12 @@ function fillInQuestionTemplate(question){
         filled_in_question = replaceAll(filled_in_question, "#", num_animal_1);
     }
     if(contains(filled_in_question,"ANIMAL1")){
-        filled_in_question = replaceAll(filled_in_question, "ANIMAL1", animal_filler[0].pluralize);
+        if (num_animal_1 == 1){
+            filled_in_question = replaceAll(filled_in_question, "ANIMAL1", animal_filler[0].animal_name);
+        } 
+        else{
+            filled_in_question = replaceAll(filled_in_question, "ANIMAL1", animal_filler[0].pluralize);
+        }
     }
     return filled_in_question;
 }
