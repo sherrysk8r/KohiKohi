@@ -8,6 +8,7 @@ question_form =[];
 nums = [];
 userInput = null;
 // Timer 
+count=10;     // Start the timer with 10 seconds 
 
 
 //Load question into question space as soon as the document is ready
@@ -27,19 +28,19 @@ $(document).ready(function() {
 // Adapted from Stack Overflow: 
 // http://stackoverflow.com/questions/1191865/code-for-a-simple-javascript-countdown-timer
 function manageTime(){
-    var count=10;     // Start the timer with 10 seconds 
-    var counter=setInterval(timer, 1000); //Run the timer function/update the display every second
-    function timer(){
+    // function timer(){
             count=count-1;
             if (count <= 0){
              clearInterval(counter);
              //counter ended, do something here
              window.alert("Time is up!");
+             // reset time back to 10
+
              return;
             }
             //Display the number of seconds
             $('#timer_countdown').text(count + " seconds");
-        }
+        // }
 }
 
 
@@ -92,7 +93,7 @@ function generateQuestion(){
             $("#question-box").html(displayText);
     } ); // getJSON
     //Start the Timer
-    manageTime();
+    counter=setInterval(manageTime, 1000); //Run the timer function/update the display every second
 }
 
 
@@ -216,6 +217,8 @@ function checkAnswer(){
     else{
         window.alert("Not quite. The correct answer is " + correctAnswer);
     }
+    clearInterval(counter);
+    count = 10;
     generateQuestion();
     userInput = null;
     displayUserInput(userInput);
