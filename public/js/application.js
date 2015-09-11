@@ -9,6 +9,7 @@ nums = [];
 userInput = null;
 // Timer 
 
+
 //Load question into question space as soon as the document is ready
 $(document).ready(function() {
     generateQuestion();
@@ -26,7 +27,19 @@ $(document).ready(function() {
 // Adapted from Stack Overflow: 
 // http://stackoverflow.com/questions/1191865/code-for-a-simple-javascript-countdown-timer
 function manageTime(){
-    console.log("Time...");
+    var count=10;     // Start the timer with 10 seconds 
+    var counter=setInterval(timer, 1000); //Run the timer function/update the display every second
+    function timer(){
+            count=count-1;
+            if (count <= 0){
+             clearInterval(counter);
+             //counter ended, do something here
+             window.alert("Time is up!");
+             return;
+            }
+            //Display the number of seconds
+            $('#timer_countdown').text(count + " seconds");
+        }
 }
 
 
