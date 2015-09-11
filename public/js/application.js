@@ -120,8 +120,8 @@ function fillInQuestionTemplate(question){
 
     while (contains(filled_in_question, "TOREPLACE")){
         phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
-        index = phrase.substring(phrase.length - 1) - 1;
-        filled_in_question = replaceAll(filled_in_question, phrase, animal_filler[index].animal_name);
+        animalIndex = phrase.substr(phrase.length - 1) - 1;
+        filled_in_question = replaceAll(filled_in_question, phrase, animal_filler[animalIndex].pluralize);
     }
     
     return filled_in_question;
@@ -145,7 +145,12 @@ function escapeRegExp(string) {
 }
 
 function replaceAt(string, index, character) {
-    return string.substr(0, index) + character + string.substr(index + 1);
+    character += ""
+    extra_space = ""
+    if (character.length > 1){
+        extra_space = " ".repeat(character.length-1);
+    }
+    return string.substr(0, index) + character + extra_space + string.substr(index + character.length);
 }
 
 String.prototype.repeat = function(times) {

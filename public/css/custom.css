@@ -95,6 +95,7 @@ html {
 .question-area{
 	background-color: white;
 	height:68%;
+	max-height: 68%;
 	margin: 0px 50px;
 }
 
