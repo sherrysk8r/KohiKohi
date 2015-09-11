@@ -7,6 +7,7 @@ question_form =[];
 //Array stores all the numbers generated in the question 
 nums = [];
 userInput = null;
+// Timer 
 
 //Load question into question space as soon as the document is ready
 $(document).ready(function() {
@@ -20,6 +21,14 @@ $(document).ready(function() {
     });
     $( ".calc-submit" ).click(checkAnswer);
 });
+
+// roll the timer after question is initially generated and displayede 
+// Adapted from Stack Overflow: 
+// http://stackoverflow.com/questions/1191865/code-for-a-simple-javascript-countdown-timer
+function manageTime(){
+    console.log("Time...");
+}
+
 
 function displayTextQuestion(){
     displayText = "<p class='center-align'>" + question_form[0] + "<\/p>";
@@ -69,6 +78,8 @@ function generateQuestion(){
             displayText = "<p class='center-align'>" + question_completed + "<\/p>";
             $("#question-box").html(displayText);
     } ); // getJSON
+    //Start the Timer
+    manageTime();
 }
 
 
