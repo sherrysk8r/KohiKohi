@@ -47,7 +47,8 @@ function displayIconView(){
         display.push(d);
     }
 
-    displayText = "<div class='responsive-img col s4 offset-s1 center-align'>" + display[0] + "</div><div class='col s1 center-align valign-wrapper'><p class='valign'>" + question.operation + "</p></div><div class='responsive-img col s4 center-align'>" + display[1] + "</div>";
+    // hard-coded. Not great.
+    displayText = "<div class='responsive-img col s5 center-align'>" + display[0] + "</div><div class='col s1 center-align valign-wrapper'><p class='valign'>" + question.operation + "</p></div><div class='responsive-img col s5 center-align'>" + display[1] + "</div>";
     $("#question-box").html(displayText);
 }
 
@@ -92,13 +93,10 @@ function generateQuestion(){
 //Return the qurstion in equation form
 function generateEquation(question){
     var equation = "";
-    equation += question.starting_num + " "; //Start Number
-    //Append the operation to the equation 
-    equation += question.operation + " ";
-    //Append the number on which the operation will be applied on (base case, to expand on later)
-    equation += nums[0] + " ";
-    //Finish off the equation
-    equation += "= ?";
+    for (var i = 0; i < nums.length-1; i++){
+        equation += nums[i] + " " + question.operation + " " ;
+    }
+    equation += nums[nums.length-1] + " = ?";
     return equation;
 }
 

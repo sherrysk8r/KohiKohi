@@ -9,8 +9,8 @@
 	],
     "questions":[
         {"question":"Tommy owns a farm with # TOREPLACE1. Yesterday, Tommy bought # more TOREPLACE1. How many TOREPLACE1 does Tommy have now?",
-         "num_animals_needed":1, "num_times_used":0, "starting_num":3, "operation":"+"},
+         "num_animals_needed":1, "num_times_used":0, "operation":"+"},
         {"question":"Bobby went to the animal shelter and adopted # TOREPLACE1. Bobby already has # TOREPLACE2. How many pets does Bobby have now?",
-        "num_animals_needed":2, "num_times_used":0, "starting_num":2, "operation":"+"} 
+        "num_animals_needed":2, "num_times_used":0, "operation":"+"} 
     ]
 }
