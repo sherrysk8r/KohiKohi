@@ -14,6 +14,7 @@ score = 0;
 $(document).ready(function() {
     //Load question into question space as soon as the document is ready
     //For the Problem.html page only!
+    $("#playAgain").click(startNewGame());
     if (window.location.pathname == '/problem.html') {
         generateQuestion();
         // Listeners
@@ -108,8 +109,12 @@ function generateQuestion(){
             $("#question-box").html(displayText);
     } ); // getJSON
     //Start the Timer
-    count = 15; //reset count
-    $('#timer_countdown').text(count + " seconds");
+    count = 10; //reset count
+    if (count == 1){
+        $('#timer_countdown').text(count + " second");
+    }else{
+        $('#timer_countdown').text(count + " seconds");
+    }
     counter=setInterval(manageTime, 1000); //Run the timer function/update the display every second
 }
 
@@ -254,7 +259,6 @@ function checkAnswer(){
 
 function addStrike(){
     strikes += 1;
-    console.log(strikes);
     $("#strikes").children().first().remove();
     currentContent = $("#strikes").html();
     currentContent += "<img src='images/redfish.png'></img>";
@@ -266,9 +270,16 @@ function isGameOver(){
 }
 
 function gameOver(){
-    
+    clearInterval(counter);
+    $('#finalScore').html(score);
+    $('#endGame').openModal({
+        dismissible: true,
+        opacity: 1
+    });
 }
 
-function resetAttributes(){
+function startNewGame(){
     strikes = 0;
+    score = 0;
+    generateQuestion();
 }
