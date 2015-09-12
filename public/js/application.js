@@ -33,7 +33,7 @@ function manageTime(){
     if (count <= 0){
      clearInterval(counter);
      //counter ended, do something here
-     window.alert("Time is up!");
+     Materialize.toast('Time is up!', 1000);
      generateQuestion();
      return;
     }
@@ -228,14 +228,17 @@ function userCalcInput(inputValue){
         displayUserInput(userInput);
     }
 }
+function imageToast(imageUrl) {
+        Materialize.toast('<img src="' + imageUrl + '" />', 800, 'custom-toast');
+}
 
 function checkAnswer(){
     correctAnswer = computerAnswer(question);
     if (correctAnswer == userInput){
-        window.alert("Correct!");
+         imageToast('images/GoodJob350.png');
     }
     else{
-        window.alert("Not quite. The correct answer is " + correctAnswer);
+        Materialize.toast('Not quite. The correct answer is ' + correctAnswer + '.', 1100);
     }
     // Since answer is submitted, we can kill the timer and generate a new question
     clearInterval(counter);
