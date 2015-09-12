@@ -1,15 +1,16 @@
 {
 	"animals":[
-        {"animal_name":"dog", "pluralize":"dogs", "image":""},
-        {"animal_name":"cat", "pluralize":"cats", "image":""},
-        {"animal_name":"rabbit", "pluralize":"rabbits", "image":""},
-        {"animal_name":"fish", "pluralize":"fish", "image":""},
-        {"animal_name":"bear", "pluralize":"bears", "image":""}
+        {"name":"dog", "pluralize":"dogs", "image":"../images/Dog.png"},
+        {"name":"cat", "pluralize":"cats", "image":"../images/Cat.png"},
+        {"name":"brown cat", "pluralize":"brown cats", "image":"../images/BrownCat.png"},
+        {"name":"rabbit", "pluralize":"rabbits", "image":"../images/Bunny.png"},
+        {"name":"fish", "pluralize":"fish", "image":"../images/Fish.png"},
+        {"name":"sheep", "pluralize":"sheep", "image":"../images/Sheep.png"}
 	],
     "questions":[
-        {"question":"Tommy owns a farm with 3 ANIMAL1. Yesterday, Tommy bought # more ANIMAL1. How many ANIMAL1 does Tommy have now?",
-         "num_animals_needed":1, "num_times_used":0, "starting_num":3, "operation":"+"},
-        {"question":"Bobby went to the animal shelter and adopted # ANIMAL1. Bobby already has a bunny and a goldfish. How many pets does Bobby have now?", 
-        "num_animals_needed":1, "num_times_used":0, "starting_num":2, "operation":"+"} 
+        {"question":"Tommy has a farm with # TOREPLACE1. Yesterday, Tommy got # more TOREPLACE1. How many TOREPLACE1 does Tommy have now?",
+         "num_animals_needed":1, "num_times_used":0, "operation":"+"},
+        {"question":"Bobby has # TOREPLACE1 at home. Bobby went to the store and got # TOREPLACE2. How many does Bobby have now?",
+        "num_animals_needed":2, "num_times_used":0, "operation":"+"} 
     ]
 }

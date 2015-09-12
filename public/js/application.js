@@ -6,7 +6,8 @@ question_form =[]; //Stores the different question forms
 nums = []; //Array stores all the numbers generated in the question 
 userInput = null;
 count=10; // 10 seconds on the clock/timer 
-
+animals_for_question = [];
+upper_range = 10;
 
 //Load question into question space as soon as the document is ready
 $(document).ready(function() {
@@ -49,7 +50,22 @@ function displayEquation(){
 }
 
 function displayIconView(){
-    displayText = "<div class='col s4'></div><div class='col s4'></div>";
+    var display = [];
+    for (var i = 0; i < nums.length; i++){
+        var imageLink = "";
+        if (animals_for_question.length < nums.length){
+            imageLink = animals_for_question[0].image;
+        }else{
+            imageLink = animals_for_question[i].image;
+        }
+        d = "<img class= 'responsive-img' src=" + imageLink + "></img>";
+        d = d.repeat(nums[i]);
+        display.push(d);
+    }
+
+    // hard-coded. Not great.
+    displayText = "<div class='responsive-img col s5 center-align'>" + display[0] + "</div><div class='col s1 center-align valign-wrapper'><p class='valign'>" + question.operation + "</p></div><div class='responsive-img col s5 center-align'>" + display[1] + "</div>";
+    $("#question-box").html(displayText);
 }
 
 function displayUserInput(userInput){
@@ -64,9 +80,9 @@ function displayUserInput(userInput){
 
 function generateQuestion(){
     question_form = [];
+    nums = [];
     $.getJSON("themes/animals.json", function(responseObject, diditwork) {
             // console.log(diditwork);
-            nums = [];
             //Randomly select a question from the repository
             var randomizedQuestionIndex = Math.floor(Math.random() * responseObject.questions.length);
             question = responseObject.questions[randomizedQuestionIndex];
@@ -97,13 +113,10 @@ function generateQuestion(){
 //Return the qurstion in equation form
 function generateEquation(question){
     var equation = "";
-    equation += question.starting_num + " "; //Start Number
-    //Append the operation to the equation 
-    equation += question.operation + " ";
-    //Append the number on which the operation will be applied on (base case, to expand on later)
-    equation += nums[0] + " ";
-    //Finish off the equation
-    equation += "= ?";
+    for (var i = 0; i < nums.length-1; i++){
+        equation += nums[i] + " " + question.operation + " " ;
+    }
+    equation += nums[nums.length-1] + " = ?";
     return equation;
 }
 
@@ -113,18 +126,24 @@ function fillInQuestionTemplate(question){
     var animal_filler = returnAnimalsNeeded(question.num_animals_needed, animals);
     //Parse through the question and fill in the blanks with randomized numbers and animals
     if(contains(filled_in_question, "#")){
-        var num_animal_1 = Math.floor((Math.random() * 10) +1);
-        nums.push(num_animal_1);
-        filled_in_question = replaceAll(filled_in_question, "#", num_animal_1);
-    }
-    if(contains(filled_in_question,"ANIMAL1")){
-        if (num_animal_1 == 1){
-            filled_in_question = replaceAll(filled_in_question, "ANIMAL1", animal_filler[0].animal_name);
-        } 
-        else{
-            filled_in_question = replaceAll(filled_in_question, "ANIMAL1", animal_filler[0].pluralize);
+        var indices = [];
+        for(var i=0; i<filled_in_question.length;i++) {
+            if (filled_in_question[i] === "#") indices.push(i);
+        }
+        
+        for (index of indices){
+            randomNum = Math.floor((Math.random() * upper_range) +1);
+            nums.push(randomNum);
+            filled_in_question = replaceAt(filled_in_question, index, randomNum);
         }
     }
+
+    while (contains(filled_in_question, "TOREPLACE")){
+        phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
+        animalIndex = phrase.substr(phrase.length - 1) - 1;
+        filled_in_question = replaceAll(filled_in_question, phrase, animal_filler[animalIndex].pluralize);
+    }
+    
     return filled_in_question;
 }
 
@@ -145,9 +164,22 @@ function escapeRegExp(string) {
     return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 }
 
+function replaceAt(string, index, character) {
+    character += ""
+    extra_space = ""
+    if (character.length > 1){
+        extra_space = " ".repeat(character.length-1);
+    }
+    return string.substr(0, index) + character + extra_space + string.substr(index + character.length);
+}
+
+String.prototype.repeat = function(times) {
+   return (new Array(times + 1)).join(this);
+};
+
 //Returns an array of random animals to fill in the questions 
 function returnAnimalsNeeded(num_of_animals_needed, animals){
-    var animals_for_question = [];
+    animals_for_question = [];
     for (i = 0; i < num_of_animals_needed; i++) { 
         var randomizedAnimalIndex = Math.floor(Math.random() * animals.length);
         var animal = animals[randomizedAnimalIndex];
@@ -162,18 +194,9 @@ function computerAnswer(question){
     //depending on the operations, do the following:
     if(question.operation === "+"){
         // console.log("Addition!");
-        current_total = addToStart(question.starting_num, nums);
+        current_total = nums.reduce(function(pv, cv) { return pv + cv; }, 0);
     }
     return current_total;
-}
-
-//Applies addition to the starting number and an array of numbers
-function addToStart(start, num_array){
-    var total = start;
-    for (var i = num_array.length - 1; i >= 0; i--) {
-        total += num_array[i];
-    };
-    return total;
 }
 
 function userCalcInput(inputValue){
@@ -204,9 +227,6 @@ function userCalcInput(inputValue){
 
 function checkAnswer(){
     correctAnswer = computerAnswer(question);
-    console.log(correctAnswer);
-    console.log(userInput);
-    console.log(correctAnswer == userInput);
     if (correctAnswer == userInput){
         window.alert("Correct!");
     }
@@ -216,7 +236,7 @@ function checkAnswer(){
     // Since answer is submitted, we can kill the timer and generate a new question
     clearInterval(counter);
     generateQuestion();
-    //  Clear the user input area 
+    // reset calculator
     userInput = null;
     displayUserInput(userInput);
 }
