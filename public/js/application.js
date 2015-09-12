@@ -125,9 +125,9 @@ function fillInQuestionTemplate(question){
     var filled_in_question = question.question;
     var animal_filler = returnAnimalsNeeded(question.num_animals_needed, animals);
     //Parse through the question and fill in the blanks with randomized numbers and animals
+    // Keep track of the index of all the #s in the blank questions
+    var indices = [];
     if(contains(filled_in_question, "#")){
-        // Keep track of the index of all the #s in the blank questions
-        var indices = [];
         for(var i=0; i<filled_in_question.length;i++) {
             if (filled_in_question[i] === "#") indices.push(i);
         }
@@ -140,8 +140,13 @@ function fillInQuestionTemplate(question){
     }
 
     while (contains(filled_in_question, "TOREPLACE")){
-        phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
-        animalIndex = phrase.substr(phrase.length - 1) - 1;
+        var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
+        var animalIndex = phrase.substr(phrase.length - 1) - 1;
+        // check for number of animal (singular or pluralize)
+        var which_animal = phrase.substr(phrase.length-1); //last character in phrase
+        console.log(phrase + " " + which_animal);  
+        var animal_count = filled_in_question[indices[which_animal-1]];
+        console.log(animal_count);
         filled_in_question = replaceAll(filled_in_question, phrase, animal_filler[animalIndex].pluralize);
     }
     
