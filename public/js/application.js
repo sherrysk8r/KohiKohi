@@ -8,6 +8,8 @@ userInput = null;
 count=10; // 10 seconds on the clock/timer 
 animals_for_question = [];
 upper_range = 9;
+strikes = 0;
+score = 0;
 
 //Load question into question space as soon as the document is ready
 $(document).ready(function() {
@@ -31,6 +33,7 @@ function manageTime(){
      clearInterval(counter);
      //counter ended, do something here
      window.alert("Time is up!");
+     addStrike();
      generateQuestion();
      return;
     }
@@ -79,6 +82,10 @@ function displayUserInput(userInput){
 }
 
 function generateQuestion(){
+    if (isGameOver()){
+        gameOver();
+        return;
+    }
     question_form = [];
     nums = [];
     $.getJSON("themes/animals.json", function(responseObject, diditwork) {
@@ -235,9 +242,11 @@ function checkAnswer(){
     correctAnswer = computerAnswer(question);
     if (correctAnswer == userInput){
         window.alert("Correct!");
+        score += 100;
     }
     else{
         window.alert("Not quite. The correct answer is " + correctAnswer);
+        addStrike();
     }
     // Since answer is submitted, we can kill the timer and generate a new question
     clearInterval(counter);
@@ -245,4 +254,18 @@ function checkAnswer(){
     // reset calculator
     userInput = null;
     displayUserInput(userInput);
+}
+
+function addStrike(){
+    strikes += 1;
+    
+}
+
+function isGameOver(){
+    return ((strikes == 5) ? true : false);
+}
+function gameOver(){
+
+    // reset
+    strikes = 0;
 }
