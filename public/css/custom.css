@@ -62,9 +62,13 @@ html {
 	height: 15%;
 }
 
-.timer i{
+.timer i, p{
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.timer p{
+	font-size: 2em;
 }
 
 .calcInput{

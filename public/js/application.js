@@ -2,13 +2,12 @@
 question = "";
 animals = [];
 displayText = "";
-//Stores the different question forms 
-question_form =[]; 
-//Array stores all the numbers generated in the question 
-nums = [];
+question_form =[]; //Stores the different question forms 
+nums = []; //Array stores all the numbers generated in the question 
 userInput = null;
+count=10; // 10 seconds on the clock/timer 
 animals_for_question = [];
-upper_range = 10;
+upper_range = 9;
 
 //Load question into question space as soon as the document is ready
 $(document).ready(function() {
@@ -22,6 +21,23 @@ $(document).ready(function() {
     });
     $( ".calc-submit" ).click(checkAnswer);
 });
+
+// roll the timer after question is initially generated and displayede 
+// Adapted from Stack Overflow: 
+// http://stackoverflow.com/questions/1191865/code-for-a-simple-javascript-countdown-timer
+function manageTime(){
+    count=count-1;
+    if (count <= 0){
+     clearInterval(counter);
+     //counter ended, do something here
+     window.alert("Time is up!");
+     generateQuestion();
+     return;
+    }
+    //Display the number of seconds
+    $('#timer_countdown').text(count + " seconds");
+}
+
 
 function displayTextQuestion(){
     displayText = "<p class='center-align'>" + question_form[0] + "<\/p>";
@@ -86,6 +102,10 @@ function generateQuestion(){
             displayText = "<p class='center-align'>" + question_completed + "<\/p>";
             $("#question-box").html(displayText);
     } ); // getJSON
+    //Start the Timer
+    $('#timer_countdown').text("10 seconds");
+    count = 10; //reset count
+    counter=setInterval(manageTime, 1000); //Run the timer function/update the display every second
 }
 
 
@@ -105,12 +125,13 @@ function fillInQuestionTemplate(question){
     var filled_in_question = question.question;
     var animal_filler = returnAnimalsNeeded(question.num_animals_needed, animals);
     //Parse through the question and fill in the blanks with randomized numbers and animals
+    // Keep track of the index of all the #s in the blank questions
+    var indices = [];
     if(contains(filled_in_question, "#")){
-        var indices = [];
         for(var i=0; i<filled_in_question.length;i++) {
             if (filled_in_question[i] === "#") indices.push(i);
         }
-        
+        //  Loop through the # indices and fill in/replace them 
         for (index of indices){
             randomNum = Math.floor((Math.random() * upper_range) +1);
             nums.push(randomNum);
@@ -119,8 +140,13 @@ function fillInQuestionTemplate(question){
     }
 
     while (contains(filled_in_question, "TOREPLACE")){
-        phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
-        animalIndex = phrase.substr(phrase.length - 1) - 1;
+        var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
+        var animalIndex = phrase.substr(phrase.length - 1) - 1;
+        // check for number of animal (singular or pluralize)
+        var which_animal = phrase.substr(phrase.length-1); //last character in phrase
+        console.log(phrase + " " + which_animal);  
+        var animal_count = filled_in_question[indices[which_animal-1]];
+        console.log(animal_count);
         filled_in_question = replaceAll(filled_in_question, phrase, animal_filler[animalIndex].pluralize);
     }
     
@@ -213,6 +239,8 @@ function checkAnswer(){
     else{
         window.alert("Not quite. The correct answer is " + correctAnswer);
     }
+    // Since answer is submitted, we can kill the timer and generate a new question
+    clearInterval(counter);
     generateQuestion();
     // reset calculator
     userInput = null;
