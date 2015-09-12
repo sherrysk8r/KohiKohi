@@ -10,10 +10,12 @@ animals_for_question = [];
 upper_range = 9;
 strikes = 0;
 score = 0;
+counter = "";
 
 $(document).ready(function() {
     //Load question into question space as soon as the document is ready
     //For the Problem.html page only!
+    $("#playAgain").click(startNewGame());
     if (window.location.pathname == '/problem.html') {
         generateQuestion();
         // Listeners
@@ -85,6 +87,7 @@ function displayUserInput(userInput){
 }
 
 function generateQuestion(){
+    clearInterval(counter);
     if (isGameOver()){
         gameOver();
         return;
@@ -104,18 +107,17 @@ function generateQuestion(){
             question_form.push(question_completed);
             var equation_form = generateEquation(question);
             question_form.push(equation_form);
-            // //Calculate the answer
-            // answer = computerAnswer(question);
-            // //Dsiplay the question in the box 
-            // console.log("Question: " + question_completed);
-            // console.log("Answer: " + answer);
             displayText = "<p class='center-align'>" + question_completed + "<\/p>";
             $("#question-box").html(displayText);
     } ); // getJSON
     //Start the Timer
     count = 10; //reset count
-    $('#timer_countdown').text(count + " seconds");
-    counter=setInterval(manageTime, 1000); //Run the timer function/update the display every second
+    if (count == 1){
+        $('#timer_countdown').text(count + " second");
+    }else{
+        $('#timer_countdown').text(count + " seconds");
+    }
+    counter = setInterval(manageTime, 1000); //Run the timer function/update the display every second
 }
 
 
@@ -250,7 +252,6 @@ function checkAnswer(){
         addStrike();
     }
     // Since answer is submitted, we can kill the timer and generate a new question
-    clearInterval(counter);
     generateQuestion();
     // reset calculator
     userInput = null;
@@ -259,17 +260,27 @@ function checkAnswer(){
 
 function addStrike(){
     strikes += 1;
-    
+    $("#strikes").children().first().remove();
+    currentContent = $("#strikes").html();
+    currentContent += "<img src='images/redfish.png'></img>";
+    $("#strikes").html(currentContent);
 }
 
 function isGameOver(){
     return ((strikes == 5) ? true : false);
 }
+
 function gameOver(){
-    // reset
-    strikes = 0;
+    clearInterval(counter);
+    $('#finalScore').html(score);
+    $('#endGame').openModal({
+        dismissible: true,
+        opacity: 1
+    });
 }
 
-function resetAttributes(){
-
+function startNewGame(){
+    strikes = 0;
+    score = 0;
+    generateQuestion();
 }
