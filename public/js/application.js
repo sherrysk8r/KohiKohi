@@ -117,8 +117,7 @@ function generateQuestion(){
             question_form.push(question_completed);
             var equation_form = generateEquation(question);
             question_form.push(equation_form);
-            displayText = "<p class='center-align'>" + question_completed + "<\/p>";
-            $("#question-box").html(displayText);
+            selectRandomDisplay();
     } ); // getJSON
     //Start the Timer
     count = 10; //reset count
@@ -294,4 +293,21 @@ function startNewGame(){
     strikes = 0;
     score = 0;
     generateQuestion();
+}
+
+function selectRandomDisplay(){
+    var randomNum = Math.ceil(Math.random() * 3);
+    switch (randomNum) { 
+    case 1: 
+        displayTextQuestion();
+        break;
+    case 2: 
+        displayEquation();
+        break;
+    case 3: 
+        displayIconView();
+        break;
+    default:
+        displayTextQuestion();
+    }
 }
