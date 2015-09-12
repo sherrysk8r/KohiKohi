@@ -1,5 +1,5 @@
 {
-	"animals":[
+	"items":[
         {"name":"dog", "pluralize":"dogs", "image":"../images/Dog.png"},
         {"name":"cat", "pluralize":"cats", "image":"../images/Cat.png"},
         {"name":"brown cat", "pluralize":"brown cats", "image":"../images/BrownCat.png"},

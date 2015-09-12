@@ -29,10 +29,10 @@
 	    	</span>
     		</div>
     		<div class="col s1">
-    			<a href="badges.html" id="badges"><i class="small material-icons">stars</i></a>
+    			<a class="badge-trigger waves-effect waves-light" href="#badgeModal" id="badges"><i class="small material-icons">stars</i></a>
     		</div>
     		<div class="col s1">
-    			<a href="leaderboard.html" id="leaderboard"><i class="small material-icons">people</i></a>
+    			<a class="leader-trigger waves-effect waves-light" href="#leaderModal" id="leaderboard"><i class="small material-icons">people</i></a>
     		</div>
     </div>
 </nav>
@@ -99,6 +99,23 @@
 	    </div>
 	</div>
 </div>
-
+<div id="badgeModal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Badges</h4>
+      <p>Here are all the cool badges you collected!</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Done</a>
+    </div>
+  </div>
+<div id="leaderModal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Leaderboard</h4>
+      <p>Here is the leaderboard!</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Done</a>
+    </div>
+  </div>
 </body>
 </html>

@@ -1,12 +1,12 @@
 //Global Variables
 question = "";
-animals = [];
+themeItems = [];
 displayText = "";
 question_form =[]; //Stores the different question forms 
 nums = []; //Array stores all the numbers generated in the question 
 userInput = null;
 count=10; // 10 seconds on the clock/timer 
-animals_for_question = [];
+selected_theme_items = [];
 upper_range = 9;
 strikes = 0;
 score = 0;
@@ -26,7 +26,19 @@ $(document).ready(function() {
             userCalcInput($(this).text());        
         });
         $( ".calc-submit" ).click(checkAnswer);
-      }
+    }
+    $('.badge-trigger').leanModal({
+      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+      opacity: .5, // Opacity of modal background
+      in_duration: 300, // Transition in duration
+      out_duration: 200, // Transition out duration
+    });
+    $('.leader-trigger').leanModal({
+      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+      opacity: .5, // Opacity of modal background
+      in_duration: 300, // Transition in duration
+      out_duration: 200, // Transition out duration
+    });
 });
 
 // roll the timer after question is initially generated and displayede 
@@ -61,10 +73,10 @@ function displayIconView(){
     var display = [];
     for (var i = 0; i < nums.length; i++){
         var imageLink = "";
-        if (animals_for_question.length < nums.length){
-            imageLink = animals_for_question[0].image;
+        if (selected_theme_items.length < nums.length){
+            imageLink = selected_theme_items[0].image;
         }else{
-            imageLink = animals_for_question[i].image;
+            imageLink = selected_theme_items[i].image;
         }
         d = "<img class= 'responsive-img' src=" + imageLink + "></img>";
         d = d.repeat(nums[i]);
@@ -99,16 +111,15 @@ function generateQuestion(){
             //Randomly select a question from the repository
             var randomizedQuestionIndex = Math.floor(Math.random() * responseObject.questions.length);
             question = responseObject.questions[randomizedQuestionIndex];
-            //retrieve the animals array
-            animals = responseObject.animals;
+            //retrieve the theme items array
+            themeItems = responseObject.items;
             //Fill in & update the question
             question_completed = fillInQuestionTemplate(question);
             //Store the question forms (word problem, equation)
             question_form.push(question_completed);
             var equation_form = generateEquation(question);
             question_form.push(equation_form);
-            displayText = "<p class='center-align'>" + question_completed + "<\/p>";
-            $("#question-box").html(displayText);
+            selectRandomDisplay();
     } ); // getJSON
     //Start the Timer
     count = 10; //reset count
@@ -135,7 +146,7 @@ function generateEquation(question){
 //Fills in a question template 
 function fillInQuestionTemplate(question){
     var filled_in_question = question.question;
-    var animal_filler = returnAnimalsNeeded(question.num_animals_needed, animals);
+    var animal_filler = returnAnimalsNeeded(question.num_animals_needed, themeItems);
     //Parse through the question and fill in the blanks with randomized numbers and animals
     // Keep track of the index of all the #s in the blank questions
     var indices = [];
@@ -190,15 +201,15 @@ String.prototype.repeat = function(times) {
    return (new Array(times + 1)).join(this);
 };
 
-//Returns an array of random animals to fill in the questions 
-function returnAnimalsNeeded(num_of_animals_needed, animals){
-    animals_for_question = [];
+//Returns an array of random theme items to fill in the questions 
+function returnAnimalsNeeded(num_of_animals_needed, themeItems){
+    selected_theme_items = [];
     for (i = 0; i < num_of_animals_needed; i++) { 
-        var randomizedAnimalIndex = Math.floor(Math.random() * animals.length);
-        var animal = animals[randomizedAnimalIndex];
-        animals_for_question.push(animal);
+        var randomizedIndex = Math.floor(Math.random() * themeItems.length);
+        var themeItem = themeItems[randomizedIndex];
+        selected_theme_items.push(themeItem);
     }
-    return animals_for_question;
+    return selected_theme_items;
 }
 
 //Returns the expected answer for a generated question
@@ -283,4 +294,21 @@ function startNewGame(){
     strikes = 0;
     score = 0;
     generateQuestion();
+}
+
+function selectRandomDisplay(){
+    var randomNum = Math.ceil(Math.random() * 3);
+    switch (randomNum) { 
+    case 1: 
+        displayTextQuestion();
+        break;
+    case 2: 
+        displayEquation();
+        break;
+    case 3: 
+        displayIconView();
+        break;
+    default:
+        displayTextQuestion();
+    }
 }
