@@ -1,16 +1,16 @@
 {
 	"items":[
-        {"name":"dog", "pluralize":"dogs", "image":"../images/Dog.png"},
-        {"name":"cat", "pluralize":"cats", "image":"../images/Cat.png"},
-        {"name":"brown cat", "pluralize":"brown cats", "image":"../images/BrownCat.png"},
-        {"name":"rabbit", "pluralize":"rabbits", "image":"../images/Bunny.png"},
-        {"name":"fish", "pluralize":"fish", "image":"../images/Fish.png"},
-        {"name":"sheep", "pluralize":"sheep", "image":"../images/Sheep.png"}
+        {"name":"Princess Annna", "pluralize":"princesses", "image":"../images/Princess.png"},
+        {"name":"Princess Emily", "pluralize":"princesses", "image":"../images/Princess2.png"},
+        {"name":"Princess Jennifer", "pluralize":"princesses", "image":"../images/Princess3.png"},
+        {"name":"Princess Belle", "pluralize":"princesses", "image":"../images/Princess4.png"},
+        {"name":"Princess Kate", "pluralize":"princesses", "image":"../images/Princess5.png"},
+        {"name":"Princess Mary", "pluralize":"princesses", "image":"../images/Princess6.png"}
 	],
     "questions":[
-        {"question":"Tommy has a farm with # TOREPLACE1. Yesterday, Tommy got # more TOREPLACE1. How many TOREPLACE1 does Tommy have now?",
-         "num_animals_needed":1, "num_times_used":0, "operation":"+"},
-        {"question":"Bobby has # TOREPLACE1 at home. Bobby went to the store and got # TOREPLACE2. How many does Bobby have now?",
-        "num_animals_needed":2, "num_times_used":0, "operation":"+"} 
+        {"question":"# TOREPLACE1 walk(s) to the ice cream store. There's already # TOREPLACE1 at the ice cream store. How many princesses are at the ice cream store?",
+         "num_needed":1, "num_times_used":0, "operation":"+"},
+        {"question":"# TOREPLACE1 go to the ball. # TOREPLACE2 also go to the ball. How many are at the ball?",
+        "num_needed":2, "num_times_used":0, "operation":"+"} 
     ]
 }

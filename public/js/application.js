@@ -144,7 +144,7 @@ function generateEquation(question){
 //Fills in a question template 
 function fillInQuestionTemplate(question){
     var filled_in_question = question.question;
-    var animal_filler = returnAnimalsNeeded(question.num_animals_needed, themeItems);
+    var animal_filler = returnAnimalsNeeded(question.num_needed, themeItems);
     //Parse through the question and fill in the blanks with randomized numbers and animals
     // Keep track of the index of all the #s in the blank questions
     var indices = [];

@@ -9,14 +9,14 @@
 	],
     "questions":[
         {"question":"Tommy has a farm with # TOREPLACE1. Yesterday, Tommy got # more TOREPLACE1. How many TOREPLACE1 does Tommy have now?",
-         "num_animals_needed":1, "num_times_used":0, "operation":"+"},
+         "num_needed":1, "num_times_used":0, "operation":"+"},
         {"question":"Bobby has # TOREPLACE1 at home. Bobby went to the store and got # TOREPLACE2. How many does Bobby have now?",
-        "num_animals_needed":2, "num_times_used":0, "operation":"+"},
+        "num_needed":2, "num_times_used":0, "operation":"+"},
         {"question":"In Amy's yard, Amy counts # TOREPLACE1. In Amy's neighbor's yard, she counts # TOREPLACE2. How many animals are there?",
-         "num_animals_needed":2, "num_times_used":0, "operation":"+"},
+         "num_needed":2, "num_times_used":0, "operation":"+"},
         {"question":"Elsa has # TOREPLACE1. Her friend Anna has # TOREPLACE2. How many pets do they have?",
-         "num_animals_needed":2, "num_times_used":0, "operation":"+"},
+         "num_needed":2, "num_times_used":0, "operation":"+"},
         {"question":"Kelly has # TOREPLACE1. Her mom has # TOREPLACE2. How many do they have?",
-         "num_animals_needed":2, "num_times_used":0, "operation":"+"}
+         "num_needed":2, "num_times_used":0, "operation":"+"}
     ]
 }
