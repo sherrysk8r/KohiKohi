@@ -2,13 +2,10 @@
 question = "";
 animals = [];
 displayText = "";
-//Stores the different question forms 
-question_form =[]; 
-//Array stores all the numbers generated in the question 
-nums = [];
+question_form =[]; //Stores the different question forms 
+nums = []; //Array stores all the numbers generated in the question 
 userInput = null;
-// Timer 
-count=10;     // Start the timer with 10 seconds 
+count=10; // 10 seconds on the clock/timer 
 
 
 //Load question into question space as soon as the document is ready
@@ -28,19 +25,16 @@ $(document).ready(function() {
 // Adapted from Stack Overflow: 
 // http://stackoverflow.com/questions/1191865/code-for-a-simple-javascript-countdown-timer
 function manageTime(){
-    // function timer(){
-            count=count-1;
-            if (count <= 0){
-             clearInterval(counter);
-             //counter ended, do something here
-             window.alert("Time is up!");
-             // reset time back to 10
-
-             return;
-            }
-            //Display the number of seconds
-            $('#timer_countdown').text(count + " seconds");
-        // }
+    count=count-1;
+    if (count <= 0){
+     clearInterval(counter);
+     //counter ended, do something here
+     window.alert("Time is up!");
+     generateQuestion();
+     return;
+    }
+    //Display the number of seconds
+    $('#timer_countdown').text(count + " seconds");
 }
 
 
@@ -93,6 +87,8 @@ function generateQuestion(){
             $("#question-box").html(displayText);
     } ); // getJSON
     //Start the Timer
+    $('#timer_countdown').text("10 seconds");
+    count = 10; //reset count
     counter=setInterval(manageTime, 1000); //Run the timer function/update the display every second
 }
 
@@ -217,9 +213,10 @@ function checkAnswer(){
     else{
         window.alert("Not quite. The correct answer is " + correctAnswer);
     }
+    // Since answer is submitted, we can kill the timer and generate a new question
     clearInterval(counter);
-    count = 10;
     generateQuestion();
+    //  Clear the user input area 
     userInput = null;
     displayUserInput(userInput);
 }
