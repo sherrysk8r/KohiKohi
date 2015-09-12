@@ -32,8 +32,12 @@ function manageTime(){
     if (count <= 0){
      clearInterval(counter);
      //counter ended, do something here
+<<<<<<< HEAD
      window.alert("Time is up!");
      addStrike();
+=======
+     Materialize.toast('Time is up!', 1000);
+>>>>>>> master
      generateQuestion();
      return;
     }
@@ -237,16 +241,26 @@ function userCalcInput(inputValue){
         displayUserInput(userInput);
     }
 }
+function imageToast(imageUrl) {
+        Materialize.toast('<img src="' + imageUrl + '" />', 800, 'custom-toast');
+}
 
 function checkAnswer(){
     correctAnswer = computerAnswer(question);
     if (correctAnswer == userInput){
+<<<<<<< HEAD
         window.alert("Correct!");
         score += 100;
     }
     else{
         window.alert("Not quite. The correct answer is " + correctAnswer);
         addStrike();
+=======
+         imageToast('images/GoodJob350.png');
+    }
+    else{
+        Materialize.toast('Not quite. The correct answer is ' + correctAnswer + '.', 1100);
+>>>>>>> master
     }
     // Since answer is submitted, we can kill the timer and generate a new question
     clearInterval(counter);
