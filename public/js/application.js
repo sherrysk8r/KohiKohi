@@ -230,14 +230,25 @@ function userCalcInput(inputValue){
         displayUserInput(userInput);
     }
 }
+function imageToast(imageUrl) {
+        Materialize.toast('<img src="' + imageUrl + '" />', 800, 'custom-toast');
+}
 
 function checkAnswer(){
     correctAnswer = computerAnswer(question);
     if (correctAnswer == userInput){
-        window.alert("Correct!");
+        // $('#modal1').openModal({
+        //   dismissible: true, // Modal can be dismissed by clicking outside of the modal
+        //   opacity: .5, // Opacity of modal background
+        //   in_duration: 200, // Transition in duration
+        //   out_duration: 200, // Transition out duration
+        // });
+         imageToast('images/GoodJob350.png');
+        // window.alert("Correct!");
     }
     else{
-        window.alert("Not quite. The correct answer is " + correctAnswer);
+        Materialize.toast('Not quite. The correct answer is ' + correctAnswer + '.', 800);
+        // window.alert("Not quite. The correct answer is " + correctAnswer);
     }
     // Since answer is submitted, we can kill the timer and generate a new question
     clearInterval(counter);
