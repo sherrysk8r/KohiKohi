@@ -30,7 +30,7 @@ function manageTime(){
     if (count <= 0){
      clearInterval(counter);
      //counter ended, do something here
-     window.alert("Time is up!");
+     Materialize.toast('Time is up!', 1000);
      generateQuestion();
      return;
     }
@@ -237,18 +237,10 @@ function imageToast(imageUrl) {
 function checkAnswer(){
     correctAnswer = computerAnswer(question);
     if (correctAnswer == userInput){
-        // $('#modal1').openModal({
-        //   dismissible: true, // Modal can be dismissed by clicking outside of the modal
-        //   opacity: .5, // Opacity of modal background
-        //   in_duration: 200, // Transition in duration
-        //   out_duration: 200, // Transition out duration
-        // });
          imageToast('images/GoodJob350.png');
-        // window.alert("Correct!");
     }
     else{
-        Materialize.toast('Not quite. The correct answer is ' + correctAnswer + '.', 800);
-        // window.alert("Not quite. The correct answer is " + correctAnswer);
+        Materialize.toast('Not quite. The correct answer is ' + correctAnswer + '.', 1100);
     }
     // Since answer is submitted, we can kill the timer and generate a new question
     clearInterval(counter);
