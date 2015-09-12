@@ -5,7 +5,7 @@ displayText = "";
 question_form =[]; //Stores the different question forms 
 nums = []; //Array stores all the numbers generated in the question 
 userInput = null;
-count=15; // 10 seconds on the clock/timer 
+count=10; // 10 seconds on the clock/timer 
 animals_for_question = [];
 upper_range = 9;
 strikes = 0;
@@ -266,10 +266,9 @@ function isGameOver(){
 }
 
 function gameOver(){
-    // reset
-    strikes = 0;
+    
 }
 
 function resetAttributes(){
-
+    strikes = 0;
 }
