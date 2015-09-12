@@ -7,7 +7,7 @@ nums = []; //Array stores all the numbers generated in the question
 userInput = null;
 count=10; // 10 seconds on the clock/timer 
 animals_for_question = [];
-upper_range = 10;
+upper_range = 9;
 
 //Load question into question space as soon as the document is ready
 $(document).ready(function() {
@@ -126,11 +126,12 @@ function fillInQuestionTemplate(question){
     var animal_filler = returnAnimalsNeeded(question.num_animals_needed, animals);
     //Parse through the question and fill in the blanks with randomized numbers and animals
     if(contains(filled_in_question, "#")){
+        // Keep track of the index of all the #s in the blank questions
         var indices = [];
         for(var i=0; i<filled_in_question.length;i++) {
             if (filled_in_question[i] === "#") indices.push(i);
         }
-        
+        //  Loop through the # indices and fill in/replace them 
         for (index of indices){
             randomNum = Math.floor((Math.random() * upper_range) +1);
             nums.push(randomNum);
