@@ -5,7 +5,7 @@ displayText = "";
 question_form =[]; //Stores the different question forms 
 nums = []; //Array stores all the numbers generated in the question 
 userInput = null;
-count=10; // 10 seconds on the clock/timer 
+count=15; // 10 seconds on the clock/timer 
 animals_for_question = [];
 upper_range = 9;
 
@@ -106,8 +106,8 @@ function generateQuestion(){
             $("#question-box").html(displayText);
     } ); // getJSON
     //Start the Timer
-    $('#timer_countdown').text("10 seconds");
-    count = 10; //reset count
+    count = 15; //reset count
+    $('#timer_countdown').text(count + " seconds");
     counter=setInterval(manageTime, 1000); //Run the timer function/update the display every second
 }
 
@@ -238,7 +238,7 @@ function checkAnswer(){
          imageToast('images/GoodJob350.png');
     }
     else{
-        Materialize.toast('Not quite. The correct answer is ' + correctAnswer + '.', 1100);
+        Materialize.toast('Not quite. The correct answer is ' + correctAnswer + '.', 2000);
     }
     // Since answer is submitted, we can kill the timer and generate a new question
     clearInterval(counter);
