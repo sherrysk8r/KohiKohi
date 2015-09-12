@@ -32,12 +32,8 @@ function manageTime(){
     if (count <= 0){
      clearInterval(counter);
      //counter ended, do something here
-<<<<<<< HEAD
-     window.alert("Time is up!");
-     addStrike();
-=======
      Materialize.toast('Time is up!', 1000);
->>>>>>> master
+     addStrike();
      generateQuestion();
      return;
     }
@@ -248,19 +244,12 @@ function imageToast(imageUrl) {
 function checkAnswer(){
     correctAnswer = computerAnswer(question);
     if (correctAnswer == userInput){
-<<<<<<< HEAD
-        window.alert("Correct!");
+        imageToast('images/GoodJob350.png');
         score += 100;
     }
     else{
-        window.alert("Not quite. The correct answer is " + correctAnswer);
-        addStrike();
-=======
-         imageToast('images/GoodJob350.png');
-    }
-    else{
         Materialize.toast('Not quite. The correct answer is ' + correctAnswer + '.', 1100);
->>>>>>> master
+        addStrike();
     }
     // Since answer is submitted, we can kill the timer and generate a new question
     clearInterval(counter);
@@ -279,7 +268,10 @@ function isGameOver(){
     return ((strikes == 5) ? true : false);
 }
 function gameOver(){
-
     // reset
     strikes = 0;
+}
+
+function resetAttributes(){
+
 }
