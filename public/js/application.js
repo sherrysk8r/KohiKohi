@@ -9,17 +9,20 @@ count=10; // 10 seconds on the clock/timer
 animals_for_question = [];
 upper_range = 9;
 
-//Load question into question space as soon as the document is ready
 $(document).ready(function() {
-    generateQuestion();
-    // Listeners
-    $( "#text_question" ).click(displayTextQuestion);
-    $( "#icon_view ").click(displayIconView);
-    $( "#equation" ).click(displayEquation);
-    $( ".calc-input ").click(function(){
-        userCalcInput($(this).text());        
-    });
-    $( ".calc-submit" ).click(checkAnswer);
+    //Load question into question space as soon as the document is ready
+    //For the Problem.html page only!
+    if (window.location.pathname == '/problem.html') {
+        generateQuestion();
+        // Listeners
+        $( "#text_question" ).click(displayTextQuestion);
+        $( "#icon_view ").click(displayIconView);
+        $( "#equation" ).click(displayEquation);
+        $( ".calc-input ").click(function(){
+            userCalcInput($(this).text());        
+        });
+        $( ".calc-submit" ).click(checkAnswer);
+      }
 });
 
 // roll the timer after question is initially generated and displayede 
@@ -142,11 +145,6 @@ function fillInQuestionTemplate(question){
     while (contains(filled_in_question, "TOREPLACE")){
         var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
         var animalIndex = phrase.substr(phrase.length - 1) - 1;
-        // check for number of animal (singular or pluralize)
-        var which_animal = phrase.substr(phrase.length-1); //last character in phrase
-        console.log(phrase + " " + which_animal);  
-        var animal_count = filled_in_question[indices[which_animal-1]];
-        console.log(animal_count);
         filled_in_question = replaceAll(filled_in_question, phrase, animal_filler[animalIndex].pluralize);
     }
     
