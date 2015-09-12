@@ -5,7 +5,7 @@ displayText = "";
 question_form =[]; //Stores the different question forms 
 nums = []; //Array stores all the numbers generated in the question 
 userInput = null;
-count=15; // 10 seconds on the clock/timer 
+count=10; // 10 seconds on the clock/timer 
 animals_for_question = [];
 upper_range = 9;
 strikes = 0;
@@ -113,7 +113,7 @@ function generateQuestion(){
             $("#question-box").html(displayText);
     } ); // getJSON
     //Start the Timer
-    count = 15; //reset count
+    count = 10; //reset count
     $('#timer_countdown').text(count + " seconds");
     counter=setInterval(manageTime, 1000); //Run the timer function/update the display every second
 }
