@@ -10,6 +10,7 @@ selected_theme_items = [];
 upper_range = 9;
 strikes = 0;
 score = 0;
+counter = "";
 
 $(document).ready(function() {
     //Load question into question space as soon as the document is ready
@@ -98,6 +99,7 @@ function displayUserInput(userInput){
 }
 
 function generateQuestion(){
+    clearInterval(counter);
     if (isGameOver()){
         gameOver();
         return;
@@ -126,7 +128,7 @@ function generateQuestion(){
     }else{
         $('#timer_countdown').text(count + " seconds");
     }
-    counter=setInterval(manageTime, 1000); //Run the timer function/update the display every second
+    counter = setInterval(manageTime, 1000); //Run the timer function/update the display every second
 }
 
 
@@ -261,7 +263,6 @@ function checkAnswer(){
         addStrike();
     }
     // Since answer is submitted, we can kill the timer and generate a new question
-    clearInterval(counter);
     generateQuestion();
     // reset calculator
     userInput = null;
