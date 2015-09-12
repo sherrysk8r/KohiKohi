@@ -101,11 +101,6 @@ function generateQuestion(){
             question_form.push(question_completed);
             var equation_form = generateEquation(question);
             question_form.push(equation_form);
-            // //Calculate the answer
-            // answer = computerAnswer(question);
-            // //Dsiplay the question in the box 
-            // console.log("Question: " + question_completed);
-            // console.log("Answer: " + answer);
             displayText = "<p class='center-align'>" + question_completed + "<\/p>";
             $("#question-box").html(displayText);
     } ); // getJSON
@@ -151,9 +146,7 @@ function fillInQuestionTemplate(question){
         var animalIndex = phrase.substr(phrase.length - 1) - 1;
         // check for number of animal (singular or pluralize)
         var which_animal = phrase.substr(phrase.length-1); //last character in phrase
-        console.log(phrase + " " + which_animal);  
         var animal_count = filled_in_question[indices[which_animal-1]];
-        console.log(animal_count);
         filled_in_question = replaceAll(filled_in_question, phrase, animal_filler[animalIndex].pluralize);
     }
     
@@ -261,12 +254,17 @@ function checkAnswer(){
 
 function addStrike(){
     strikes += 1;
-    
+    console.log(strikes);
+    $("#strikes").children().first().remove();
+    currentContent = $("#strikes").html();
+    currentContent += "<img src='images/redfish.png'></img>";
+    $("#strikes").html(currentContent);
 }
 
 function isGameOver(){
     return ((strikes == 5) ? true : false);
 }
+
 function gameOver(){
     // reset
     strikes = 0;
