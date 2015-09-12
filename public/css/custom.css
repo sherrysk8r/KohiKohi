@@ -143,3 +143,10 @@ p.equation-form{
     float: center;
     padding: 0 23em;
 }
+#strikes{
+	display: inline-block;
+	margin-top: .5em;
+}
+.align-bottom{
+	vertical-align: bottom;
+}
