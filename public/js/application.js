@@ -8,6 +8,8 @@ userInput = null;
 count=15; // 10 seconds on the clock/timer 
 animals_for_question = [];
 upper_range = 9;
+strikes = 0;
+score = 0;
 
 $(document).ready(function() {
     //Load question into question space as soon as the document is ready
@@ -34,6 +36,7 @@ function manageTime(){
      clearInterval(counter);
      //counter ended, do something here
      Materialize.toast('Time is up!', 1000);
+     addStrike();
      generateQuestion();
      return;
     }
@@ -82,6 +85,10 @@ function displayUserInput(userInput){
 }
 
 function generateQuestion(){
+    if (isGameOver()){
+        gameOver();
+        return;
+    }
     question_form = [];
     nums = [];
     $.getJSON("themes/animals.json", function(responseObject, diditwork) {
@@ -235,10 +242,12 @@ function imageToast(imageUrl) {
 function checkAnswer(){
     correctAnswer = computerAnswer(question);
     if (correctAnswer == userInput){
-         imageToast('images/GoodJob350.png');
+        imageToast('images/GoodJob350.png');
+        score += 100;
     }
     else{
         Materialize.toast('Not quite. The correct answer is ' + correctAnswer + '.', 2000);
+        addStrike();
     }
     // Since answer is submitted, we can kill the timer and generate a new question
     clearInterval(counter);
@@ -246,4 +255,21 @@ function checkAnswer(){
     // reset calculator
     userInput = null;
     displayUserInput(userInput);
+}
+
+function addStrike(){
+    strikes += 1;
+    
+}
+
+function isGameOver(){
+    return ((strikes == 5) ? true : false);
+}
+function gameOver(){
+    // reset
+    strikes = 0;
+}
+
+function resetAttributes(){
+
 }
