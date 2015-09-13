@@ -7,7 +7,7 @@ nums = []; //Array stores all the numbers generated in the question
 userInput = null;
 count=10; // 10 seconds on the clock/timer 
 selected_theme_items = [];
-upper_range = 9;
+upper_range = 10;
 strikes = 0;
 score = 0;
 counter = "";
@@ -219,11 +219,7 @@ function escapeRegExp(string) {
 
 function replaceAt(string, index, character) {
     character += ""
-    extra_space = ""
-    if (character.length > 1){
-        extra_space = " ".repeat(character.length-1);
-    }
-    return string.substr(0, index) + character + extra_space + string.substr(index + character.length);
+    return string.substr(0, index) + character + string.substr(index + 1);
 }
 
 String.prototype.repeat = function(times) {
