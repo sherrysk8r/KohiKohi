@@ -15,23 +15,19 @@ counter = "";
 $(document).ready(function() {
     //Load question into question space as soon as the document is ready
     //For the Problem.html page only!
-    $('#main-form').submit(function() {
+    $('#go_button').click(function() {
         // get all the inputs into an array.
-        var $inputs = $('#main-form :input');
-        console.log($inputs);
-        // not sure if you wanted this, but I thought I'd add it.
-        // get an associative array of just the values.
-        var values = {};
-        $inputs.each(function() {
-            values[this.name] = $(this).val();
-        });
-
+        var inputs = $('#main-form :selected');
+        window.selectedTheme = inputs[0].text;
+        window.selectedSubject = inputs[1].text;
+        window.location = "/problem.html";
     });
 
-    $("#playAgain").click(startNewGame());
     
     if (window.location.pathname == '/problem.html') {
-        // startNewGame();
+        console.log(window.selectedTheme);
+        console.log(window.selectedSubject);
+        startNewGame();
         // Listeners
         $( "#text_question" ).click(displayTextQuestion);
         $( "#icon_view ").click(displayIconView);
@@ -125,7 +121,6 @@ function generateQuestion(){
     question_form = [];
     nums = [];
     $.getJSON("themes/animals.json", function(responseObject, diditwork) {
-            // console.log(diditwork);
             //Randomly select a question from the repository
             var randomizedQuestionIndex = Math.floor(Math.random() * responseObject.questions.length);
             question = responseObject.questions[randomizedQuestionIndex];
@@ -175,21 +170,6 @@ function fillInQuestionTemplate(question){
         nums.push(randomNum);
         filled_in_question = replaceAt(filled_in_question, index, randomNum);
     }
-    // if(contains(filled_in_question, "#")){
-    //     var indices = [];
-    //     for(var i=0; i<filled_in_question.length;i++) {
-    //         if (filled_in_question[i] === "#"){
-    //             indices.push(i);
-    //         }
-    //     }
-    //     //  Loop through the # indices and fill in/replace them 
-    //     // for (index of indices){
-    //     //     randomNum = 
-    //     //     nums.push(randomNum);
-    //     //     
-    //     // }
-    // }
-    console.log(nums);
         
     while (contains(filled_in_question, "TOREPLACE")){
         var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
@@ -241,7 +221,6 @@ function returnThemeItems(num_needed, themeItems){
 function computeAnswer(question){
     //depending on the operations, do the following:
     current_total = 0;
-    console.log(nums);
     switch (question.operation){
         case "+":
             current_total = nums.reduce(function(pv, cv) { return pv + cv; }, 0);
@@ -283,7 +262,6 @@ function imageToast(imageUrl) {
 
 function checkAnswer(){
     correctAnswer = computeAnswer(question);
-    console.log(correctAnswer);
     if (correctAnswer == userInput){
         imageToast('images/GoodJob350.png');
         score += 100;
@@ -318,6 +296,7 @@ function gameOver(){
         dismissible: true,
         opacity: .5
     });
+    $("#playAgain").click(startNewGame());
 }
 
 function startNewGame(){

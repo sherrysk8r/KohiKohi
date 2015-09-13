@@ -7,6 +7,10 @@
 	<link type="text/css" rel="stylesheet" href="css/custom.css"  media="screen,projection"/>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<script type="text/javascript">
+		window.selectedTheme = "";
+		window.selectedSubject = "";
+	</script>
 	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>      
     <script type="text/javascript" src="js/materialize.js"></script>
     <script type="text/javascript" src="js/custom.js"></script>
@@ -22,8 +26,8 @@
 					<div class="input-field col s12">
 						<p class="center-align question-label">Theme</p>
 						<select>
-							<option value="" disabled selected>Pick a theme...</option>
-							<option value="animals">Animals</option>
+							<option name="theme" value="" disabled selected>Pick a theme...</option>
+							<option name="theme" value="animals">Animals</option>
 						</select>
 					</div>
 				</div>
@@ -31,13 +35,13 @@
 					<div class="input-field col s12">
 						<p class="center-align question-label">Subject</p>
 						<select>
-							<option value="" disabled selected>Pick a subject...</option>
-							<option value="add-sub-10">Add/Subtract Up to 10</option>
-							<option value="add-sub-100">Add/Subtract Up to 100</option>
+							<option name="subject" value="" disabled selected>Pick a subject...</option>
+							<option name="subject" value="add-sub-10">Add/Subtract Up to 10</option>
+							<option name="subject" value="add-sub-100">Add/Subtract Up to 100</option>
 						</select>
 					</div>
 				</div>
-				<p class="center-align"><a id="go_button" class="btn-floating btn-large waves-effect waves-light form-submit-btn" href="problem.html">GO</a></p>
+				<p class="center-align"><a id="go_button" class="btn-floating btn-large waves-effect waves-light form-submit-btn">GO</a></p>
 			</form>
 			</div>
 		</div>
