@@ -15,9 +15,23 @@ counter = "";
 $(document).ready(function() {
     //Load question into question space as soon as the document is ready
     //For the Problem.html page only!
+    $('#main-form').submit(function() {
+        // get all the inputs into an array.
+        var $inputs = $('#main-form :input');
+        console.log($inputs);
+        // not sure if you wanted this, but I thought I'd add it.
+        // get an associative array of just the values.
+        var values = {};
+        $inputs.each(function() {
+            values[this.name] = $(this).val();
+        });
+
+    });
+
     $("#playAgain").click(startNewGame());
+    
     if (window.location.pathname == '/problem.html') {
-        generateQuestion();
+        // startNewGame();
         // Listeners
         $( "#text_question" ).click(displayTextQuestion);
         $( "#icon_view ").click(displayIconView);
@@ -55,7 +69,11 @@ function manageTime(){
      return;
     }
     //Display the number of seconds
-    $('#timer_countdown').text(count + " seconds");
+    if (count == 1){
+        $('#timer_countdown').text(count + " second");
+    }else{
+        $('#timer_countdown').text(count + " seconds");
+    }
 }
 
 
@@ -149,25 +167,36 @@ function fillInQuestionTemplate(question){
     var theme_filler = returnThemeItems(question.num_needed, themeItems);
     //Parse through the question and fill in the blanks with randomized numbers and themes
     // Keep track of the index of all the #s in the blank questions
-    var indices = [];
-    if(contains(filled_in_question, "#")){
-        for(var i=0; i<filled_in_question.length;i++) {
-            if (filled_in_question[i] === "#") indices.push(i);
-        }
-        //  Loop through the # indices and fill in/replace them 
-        for (index of indices){
-            randomNum = Math.floor((Math.random() * upper_range) +1);
-            nums.push(randomNum);
-            filled_in_question = replaceAt(filled_in_question, index, randomNum);
-        }
+    
+    nums = [];
+    while(contains(filled_in_question, "#")){
+        var index = filled_in_question.search(/#/gi);
+        var randomNum = Math.ceil((Math.random() * upper_range));
+        nums.push(randomNum);
+        filled_in_question = replaceAt(filled_in_question, index, randomNum);
     }
-
+    // if(contains(filled_in_question, "#")){
+    //     var indices = [];
+    //     for(var i=0; i<filled_in_question.length;i++) {
+    //         if (filled_in_question[i] === "#"){
+    //             indices.push(i);
+    //         }
+    //     }
+    //     //  Loop through the # indices and fill in/replace them 
+    //     // for (index of indices){
+    //     //     randomNum = 
+    //     //     nums.push(randomNum);
+    //     //     
+    //     // }
+    // }
+    console.log(nums);
+        
     while (contains(filled_in_question, "TOREPLACE")){
         var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
         var animalIndex = phrase.substr(phrase.length - 1) - 1;
         filled_in_question = replaceAll(filled_in_question, phrase, theme_filler[animalIndex].pluralize);
     }
-    
+
     return filled_in_question;
 }
 
@@ -213,12 +242,16 @@ function returnThemeItems(num_needed, themeItems){
 }
 
 //Returns the expected answer for a generated question
-function computerAnswer(question){
-    var current_total = 0; 
+function computeAnswer(question){
     //depending on the operations, do the following:
-    if(question.operation === "+"){
-        // console.log("Addition!");
-        current_total = nums.reduce(function(pv, cv) { return pv + cv; }, 0);
+    current_total = 0;
+    console.log(nums);
+    switch (question.operation){
+        case "+":
+            current_total = nums.reduce(function(pv, cv) { return pv + cv; }, 0);
+            break;
+        default:
+            current_total = nums.reduce(function(pv, cv) { return pv + cv; }, 0);
     }
     return current_total;
 }
@@ -253,7 +286,8 @@ function imageToast(imageUrl) {
 }
 
 function checkAnswer(){
-    correctAnswer = computerAnswer(question);
+    correctAnswer = computeAnswer(question);
+    console.log(correctAnswer);
     if (correctAnswer == userInput){
         imageToast('images/GoodJob350.png');
         score += 100;
@@ -286,7 +320,7 @@ function gameOver(){
     $('#finalScore').html(score);
     $('#endGame').openModal({
         dismissible: true,
-        opacity: 1
+        opacity: .5
     });
 }
 
