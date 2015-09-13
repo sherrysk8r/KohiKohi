@@ -1,5 +1,7 @@
 {
-	"leaderboard":[
-    {"user":"Captain Dev", "points_collected":10}
+	"leaders":[
+    {"user":"Captain Dev", "points_collected":1000},
+    {"user":"Sailor PHP", "points_collected":400},
+    {"user":"Deckhand CoBOL", "points_collected":200}
 	]
 }

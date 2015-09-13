@@ -25,8 +25,6 @@ $(document).ready(function() {
 
     
     if (window.location.pathname == '/problem.html') {
-        console.log(window.selectedTheme);
-        console.log(window.selectedSubject);
         startNewGame();
         // Listeners
         $( "#text_question" ).click(displayTextQuestion);
@@ -36,7 +34,10 @@ $(document).ready(function() {
             userCalcInput($(this).text());        
         });
         $( ".calc-submit" ).click(checkAnswer);
+        $("#leaderboard").click(displayLeaderboard);
     }
+
+    // Modal triggers on the problem.html page 
     $('.badge-trigger').leanModal({
       dismissible: true, // Modal can be dismissed by clicking outside of the modal
       opacity: .5, // Opacity of modal background
@@ -51,7 +52,34 @@ $(document).ready(function() {
     });
 });
 
-// roll the timer after question is initially generated and displayede 
+// Populate the leaderboard modal
+function displayLeaderboard(){
+    console.log("Updating leaderboard...");
+    // read from the leaderboard.json file (where leaderboard data is stored)
+    var leaderboard = createLeaderboard();
+}
+
+function createLeaderboard(){
+    $.getJSON("leaderboard.json", function(responseObject, diditwork) {
+        var displayTable = "<table class='bordered'><th>KohiKohi Rock Stars<\/th><th>High Score<\/th><\/tr>";
+        for (var i = 0; i<responseObject.leaders.length; i++) {
+            // create a new row in the table
+            displayTable += "<tr>";
+            var leader = responseObject.leaders[i];
+            displayTable += "<td>" + leader.user + "<\/td>";
+            displayTable += "<td>" + leader.points_collected + "<\/td>";
+            displayTable += "<\/tr>";
+                }
+        displayTable += "<\/table>";
+        $("#leaderboard_table").html(displayTable);
+    } ); // getJSON
+}
+
+function sortLeaderboard(){
+    
+}
+
+// roll the timer after question is initially generated and displayed
 // Adapted from Stack Overflow: 
 // http://stackoverflow.com/questions/1191865/code-for-a-simple-javascript-countdown-timer
 function manageTime(){
