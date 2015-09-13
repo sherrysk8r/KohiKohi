@@ -146,8 +146,8 @@ function generateEquation(question){
 //Fills in a question template 
 function fillInQuestionTemplate(question){
     var filled_in_question = question.question;
-    var animal_filler = returnAnimalsNeeded(question.num_needed, themeItems);
-    //Parse through the question and fill in the blanks with randomized numbers and animals
+    var theme_filler = returnThemeItems(question.num_needed, themeItems);
+    //Parse through the question and fill in the blanks with randomized numbers and themes
     // Keep track of the index of all the #s in the blank questions
     var indices = [];
     if(contains(filled_in_question, "#")){
@@ -165,7 +165,7 @@ function fillInQuestionTemplate(question){
     while (contains(filled_in_question, "TOREPLACE")){
         var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
         var animalIndex = phrase.substr(phrase.length - 1) - 1;
-        filled_in_question = replaceAll(filled_in_question, phrase, animal_filler[animalIndex].pluralize);
+        filled_in_question = replaceAll(filled_in_question, phrase, theme_filler[animalIndex].pluralize);
     }
     
     return filled_in_question;
@@ -202,9 +202,9 @@ String.prototype.repeat = function(times) {
 };
 
 //Returns an array of random theme items to fill in the questions 
-function returnAnimalsNeeded(num_of_animals_needed, themeItems){
+function returnThemeItems(num_needed, themeItems){
     selected_theme_items = [];
-    for (i = 0; i < num_of_animals_needed; i++) { 
+    for (i = 0; i < num_needed; i++) { 
         var randomizedIndex = Math.floor(Math.random() * themeItems.length);
         var themeItem = themeItems[randomizedIndex];
         selected_theme_items.push(themeItem);
