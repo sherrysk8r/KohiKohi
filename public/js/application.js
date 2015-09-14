@@ -325,7 +325,7 @@ function gameOver(){
     $('#finalScore').html(score);
     displayLeaderboard(true, score);
     $('#endGame').openModal({
-        dismissible: true,
+        dismissible: false,
         opacity: .5
     });
     $("#playAgain").click(startNewGame);
