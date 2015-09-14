@@ -322,14 +322,13 @@ function isGameOver(){
 }
 
 function gameOver(){
-    clearInterval(counter);
     $('#finalScore').html(score);
     displayLeaderboard(true, score);
     $('#endGame').openModal({
         dismissible: true,
         opacity: .5
     });
-    $("#playAgain").click(startNewGame());
+    $("#playAgain").click(startNewGame);
 }
 
 function startNewGame(){
