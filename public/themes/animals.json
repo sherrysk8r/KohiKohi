@@ -17,6 +17,8 @@
         {"question":"Elsa has # TOREPLACE1. Her friend Anna has # TOREPLACE2. How many pets do they have?",
          "num_needed":2, "num_times_used":0, "operation":"+"},
         {"question":"Kelly has # TOREPLACE1. Her mom has # TOREPLACE2. How many do they have?",
-         "num_needed":2, "num_times_used":0, "operation":"+"}
+         "num_needed":2, "num_times_used":0, "operation":"+"},
+        {"question":"Billy has # TOREPLACE1. He gave # TOREPLACE1 away to a friend. How many does he have now?",
+         "num_needed":1, "num_times_used":0, "operation":"-"}
     ]
 }
