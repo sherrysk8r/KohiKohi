@@ -11,6 +11,10 @@
         {"question":"# TOREPLACE1 walk(s) to the ice cream store. There's already # TOREPLACE1 at the ice cream store. How many princesses are at the ice cream store?",
          "num_needed":1, "num_times_used":0, "operation":"+"},
         {"question":"# TOREPLACE1 go to the ball. # TOREPLACE2 also go to the ball. How many are at the ball?",
+        "num_needed":2, "num_times_used":0, "operation":"+"},
+        {"question":"# TOREPLACE1 have a team party with # TOREPLACE2. How many princesses are there?",
+        "num_needed":2, "num_times_used":0, "operation":"+"},
+        {"question":"# TOREPLACE1 are dancing. # TOREPLACE2 are eating. How many are there in total?",
         "num_needed":2, "num_times_used":0, "operation":"+"} 
     ]
 }
