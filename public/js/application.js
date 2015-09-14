@@ -26,8 +26,6 @@ $(document).ready(function() {
     $(".calc-submit").css('background-color', "#9e9e9e");
 
     if (window.location.pathname == '/problem.html') {
-        console.log(window.selectedTheme);
-        console.log(window.selectedSubject);
         startNewGame();
         // Listeners
         $( "#text_question" ).click(displayTextQuestion);
@@ -37,7 +35,10 @@ $(document).ready(function() {
             userCalcInput($(this).text());        
         });
         $( ".calc-submit" ).click(checkAnswer);
+        $("#leaderboard").click(displayLeaderboard);
     }
+
+    // Modal triggers on the problem.html page 
     $('.badge-trigger').leanModal({
       dismissible: true, // Modal can be dismissed by clicking outside of the modal
       opacity: .5, // Opacity of modal background
@@ -52,7 +53,33 @@ $(document).ready(function() {
     });
 });
 
-// roll the timer after question is initially generated and displayede 
+// Populate the Leaderboard Modal
+function displayLeaderboard(){
+    // read from the leaderboard.json file (where leaderboard data is stored)
+    $.getJSON("leaderboard.json", function(responseObject, diditwork) {
+        var leaderboard = responseObject.leaders;
+        // Sort the leaderboard, scores DESC, adapted from Stack Overflow
+        // http://stackoverflow.com/questions/979256/sorting-an-array-of-javascript-objects
+        leaderboard.sort(function(a, b) {
+            return parseFloat(b.points_collected) - parseFloat(a.points_collected);
+        });
+        // Populate the table using the sorted leaderboard data 
+        var displayTable = "<table class='bordered'><th>KohiKohi Rock Stars<\/th><th>High Score<\/th><\/tr>";
+        for (var i = 0; i<leaderboard.length; i++) {
+            // create a new row in the table
+            displayTable += "<tr>";
+            var leader = leaderboard[i];
+            displayTable += "<td>" + leader.user + "<\/td>";
+            displayTable += "<td>" + leader.points_collected + "<\/td>";
+            displayTable += "<\/tr>";
+                }
+        displayTable += "<\/table>";
+        $("#leaderboard_table").html(displayTable);
+    } ); // getJSON
+}
+
+
+// roll the timer after question is initially generated and displayed
 // Adapted from Stack Overflow: 
 // http://stackoverflow.com/questions/1191865/code-for-a-simple-javascript-countdown-timer
 function manageTime(){
