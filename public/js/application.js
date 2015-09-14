@@ -74,12 +74,19 @@ function displayLeaderboard(isGameOver, final_score){
             return parseFloat(b.points_collected) - parseFloat(a.points_collected);
         });
         // Populate the table using the sorted leaderboard data 
-        var displayTable = "<table class='striped'><th>KohiKohi Rock Stars<\/th><th>High Score<\/th><\/tr>";
+        var displayTable = "<table class='striped'><thead><tr><th>KohiKohi Rock Stars<\/th><th>High Score<\/th><\/tr></thead>";
         for (var i = 0; i<leaderboard.length; i++) {
-            // create a new row in the table
-            displayTable += "<tr>";
             var leader = leaderboard[i];
-            displayTable += "<td>" + leader.user + "<\/td>";
+            // create a new row in the table - the user's score row is special (custom css settings)
+            if(leader.user === "You"){ 
+                displayTable += "<tr class='user_row' style='background-color: #b2ff59'>"; 
+                var star = "<i class='tiny material-icons align-bottom'>star_rate</i>";
+                displayTable += "<td>" + leader.user + star +  "<\/td>";
+            }
+            else{ 
+                displayTable += "<tr>"; 
+                displayTable += "<td>" + leader.user + "<\/td>";
+            }
             displayTable += "<td>" + leader.points_collected + "<\/td>";
             displayTable += "<\/tr>";
                 }
