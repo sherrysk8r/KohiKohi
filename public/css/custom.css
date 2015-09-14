@@ -150,8 +150,3 @@ p.equation-form{
 .align-bottom{
 	vertical-align: bottom;
 }
-
-/*Styling for the user's row in the leaderboard */
-.user_row{
-	color: orange;
-}

@@ -73,7 +73,7 @@ function displayLeaderboard(isGameOver, final_score){
             var leader = leaderboard[i];
             // create a new row in the table - the user's score row is special (custom css settings)
             if(leader.user === "You"){ 
-                displayTable += "<tr class='user_row'>"; 
+                displayTable += "<tr class='user_row' style='background-color: #b2ff59'>"; 
                 var star = "<i class='tiny material-icons align-bottom'>star_rate</i>";
                 displayTable += "<td>" + leader.user + star +  "<\/td>";
             }
