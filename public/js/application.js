@@ -54,18 +54,20 @@ $(document).ready(function() {
 
 // Populate the leaderboard modal
 function displayLeaderboard(){
-    console.log("Updating leaderboard...");
     // read from the leaderboard.json file (where leaderboard data is stored)
-    var leaderboard = createLeaderboard();
-}
-
-function createLeaderboard(){
     $.getJSON("leaderboard.json", function(responseObject, diditwork) {
+        var leaderboard = responseObject.leaders;
+        // Sort the leaderboard, scores DESC, adapted from Stack Overflow
+        // http://stackoverflow.com/questions/979256/sorting-an-array-of-javascript-objects
+        leaderboard.sort(function(a, b) {
+            return parseFloat(b.points_collected) - parseFloat(a.points_collected);
+        });
+        // Populate the table using the sorted leaderboard data 
         var displayTable = "<table class='bordered'><th>KohiKohi Rock Stars<\/th><th>High Score<\/th><\/tr>";
-        for (var i = 0; i<responseObject.leaders.length; i++) {
+        for (var i = 0; i<leaderboard.length; i++) {
             // create a new row in the table
             displayTable += "<tr>";
-            var leader = responseObject.leaders[i];
+            var leader = leaderboard[i];
             displayTable += "<td>" + leader.user + "<\/td>";
             displayTable += "<td>" + leader.points_collected + "<\/td>";
             displayTable += "<\/tr>";
@@ -75,9 +77,6 @@ function createLeaderboard(){
     } ); // getJSON
 }
 
-function sortLeaderboard(){
-    
-}
 
 // roll the timer after question is initially generated and displayed
 // Adapted from Stack Overflow: 
