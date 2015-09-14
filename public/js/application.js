@@ -52,7 +52,7 @@ $(document).ready(function() {
     });
 });
 
-// Populate the leaderboard modal
+// Populate the Leaderboard Modal
 function displayLeaderboard(){
     // read from the leaderboard.json file (where leaderboard data is stored)
     $.getJSON("leaderboard.json", function(responseObject, diditwork) {
