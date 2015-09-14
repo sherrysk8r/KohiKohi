@@ -23,7 +23,8 @@ $(document).ready(function() {
         window.location = "/problem.html";
     });
 
-    
+    $(".calc-submit").css('background-color', "#9e9e9e");
+
     if (window.location.pathname == '/problem.html') {
         console.log(window.selectedTheme);
         console.log(window.selectedSubject);
@@ -104,10 +105,12 @@ function displayIconView(){
 
 function displayUserInput(userInput){
     if (!isNaN(userInput) & userInput != null){
+        $(".calc-submit").css('background-color', "#b2ff59");
         displayText = "<p>" + userInput + "<\/p>";
     }
     else{
-        displayText = "<p> <\/p>";
+        $(".calc-submit").css('background-color', "#9e9e9e");
+        displayText = "<p><\/p>";
     }
     $(".calcInput").html(displayText);
 }
@@ -261,20 +264,25 @@ function imageToast(imageUrl) {
 }
 
 function checkAnswer(){
-    correctAnswer = computeAnswer(question);
-    if (correctAnswer == userInput){
-        imageToast('images/GoodJob350.png');
-        score += 100;
+    if (userInput == null || userInput.length == 0){
+        Materialize.toast('Remember to type in an answer!', 2000);
     }
     else{
-        Materialize.toast('Not quite. The correct answer is ' + correctAnswer + '.', 2000);
-        addStrike();
-    }
-    // Since answer is submitted, we can kill the timer and generate a new question
-    generateQuestion();
-    // reset calculator
-    userInput = null;
-    displayUserInput(userInput);
+        correctAnswer = computeAnswer(question);
+        if (correctAnswer == userInput){
+            imageToast('images/GoodJob350.png');
+            score += 100;
+        }
+        else{
+            Materialize.toast('Not quite. The correct answer is ' + correctAnswer + '.', 2000);
+            addStrike();
+        }
+        // Since answer is submitted, we can kill the timer and generate a new question
+        generateQuestion();
+        // reset calculator
+        userInput = null;
+        displayUserInput(userInput);
+    }    
 }
 
 function addStrike(){
