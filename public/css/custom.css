@@ -151,6 +151,7 @@ p.equation-form{
 	vertical-align: bottom;
 }
 
-#leaderboard_table table th{
-	color:rgb(26, 139, 255);
+/*Styling for the user's row in the leaderboard */
+.user_row{
+	color: orange;
 }
