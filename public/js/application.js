@@ -7,7 +7,7 @@ displayText = "";
 question_form =[]; //Stores the different question forms 
 nums = []; //Array stores all the numbers generated in the question 
 userInput = null;
-count=10; // 10 seconds on the clock/timer 
+count=15; // 10 seconds on the clock/timer 
 selected_theme_items = [];
 upper_range = 10;
 strikes = 0;
@@ -183,7 +183,7 @@ function generateQuestion(){
             selectRandomDisplay();
     } ); // getJSON
     //Start the Timer
-    count = 10; //reset count
+    count = 15; //reset count
     if (count == 1){
         $('#timer_countdown').text(count + " second");
     }else{
@@ -214,17 +214,65 @@ function fillInQuestionTemplate(question){
     nums = [];
     while(contains(filled_in_question, "#")){
         var index = filled_in_question.search(/# TOREPLACE\d/gi);
+        // var phraseToSub = filled_in_question.match(/TOREPLACE\d/i);
+        // phraseToSub = phraseToSub[0];
+
+        // var themeIndex = phraseToSub.substr(index.length-1) -1;
+        // console.log(themeIndex);
+
+        // var selectedTheme = theme_filler[themeIndex];
+        // console.log(selectedTheme);
+        // var phraseResult = "";
+        
         var randomNum = Math.ceil((Math.random() * upper_range));
         nums.push(randomNum);
         filled_in_question = replaceAt(filled_in_question, index, randomNum);
+        // if (randomNum == 1){
+        //     phraseResult = randomNum + " " + selectedTheme.name;
+        // }else{
+        //     phraseResult = randomNum + " " + selectedTheme.pluralize;
+        // }
 
+        // filled_in_question = filled_in_question.substr(0, phraseIndex) + phraseResult + filled_in_question.substr(phraseIndex+10,filled_in_question.length);
+        
+        if (contains(filled_in_question, "#") && question.operation == "-"){
+            upper_range = randomNum;
+        }
+    }
+    upper_range = 10;
+
+    // var phraseIndex = filled_in_question.search(/TOREPLACE\d/i);
+    // var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
+    // var themeIndex = phrase.substr(phrase.length - 1) - 1;
+
+    // if (nums[0] == 1){
+    //     filled_in_question = filled_in_question.substr(0, phraseIndex) + theme_filler[themeIndex].name + filled_in_question.substr(phraseIndex+10,filled_in_question.length);
+    // }
+    // else{
+    //     filled_in_question = filled_in_question.substr(0, phraseIndex) + theme_filler[themeIndex].pluralize + filled_in_question.substr(phraseIndex+10,filled_in_question.length);
+    // }
+
+    // var phraseIndex = filled_in_question.search(/TOREPLACE\d/i);
+    // var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
+    // var themeIndex = phrase.substr(phrase.length - 1) - 1;
+
+    // console.log(phrase);
+    // console.log(phraseIndex);
+    // if (nums[1] == 1){
+    //     filled_in_question = filled_in_question.substr(0, phraseIndex) + theme_filler[themeIndex].name + filled_in_question.substr(phraseIndex+10,filled_in_question.length);
+    //     console.log(filled_in_question);
+    // }
+    // else{
+    //     filled_in_question = filled_in_question.substr(0, phraseIndex) + theme_filler[themeIndex].pluralize + filled_in_question.substr(phraseIndex+10,filled_in_question.length);
+    //     console.log(filled_in_question);
+    // }
+
+    
+    
+    while(contains(filled_in_question, "TOREPLACE")){
         var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
         var themeIndex = phrase.substr(phrase.length - 1) - 1;
-        if(randomNum == 1){
-            filled_in_question = replaceAll(filled_in_question, phrase, theme_filler[themeIndex].name);
-        }else{
-            filled_in_question = replaceAll(filled_in_question, phrase, theme_filler[themeIndex].pluralize);
-        }
+        filled_in_question = replaceAll(filled_in_question, phrase, theme_filler[themeIndex].pluralize);
     }
 
     return filled_in_question;
@@ -274,6 +322,9 @@ function computeAnswer(question){
     switch (question.operation){
         case "+":
             current_total = nums.reduce(function(pv, cv) { return pv + cv; }, 0);
+            break;
+        case "-":
+            current_total = nums[0] - nums[1];
             break;
         default:
             current_total = nums.reduce(function(pv, cv) { return pv + cv; }, 0);

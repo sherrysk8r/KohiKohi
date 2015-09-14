@@ -8,7 +8,7 @@
         {"name":"sheep", "pluralize":"sheep", "image":"../images/Sheep.png"}
 	],
     "questions":[
-        {"question":"Tommy has a farm with # TOREPLACE1. Yesterday, Tommy got # more TOREPLACE1. How many TOREPLACE1 does Tommy have now?",
+        {"question":"Tommy has a farm with # TOREPLACE1. Yesterday, Tommy got # more TOREPLACE1. How many does Tommy have now?",
          "num_needed":1, "num_times_used":0, "operation":"+"},
         {"question":"Bobby has # TOREPLACE1 at home. Bobby went to the store and got # TOREPLACE2. How many does Bobby have now?",
         "num_needed":2, "num_times_used":0, "operation":"+"},
@@ -17,6 +17,10 @@
         {"question":"Elsa has # TOREPLACE1. Her friend Anna has # TOREPLACE2. How many pets do they have?",
          "num_needed":2, "num_times_used":0, "operation":"+"},
         {"question":"Kelly has # TOREPLACE1. Her mom has # TOREPLACE2. How many do they have?",
-         "num_needed":2, "num_times_used":0, "operation":"+"}
+         "num_needed":2, "num_times_used":0, "operation":"+"},
+        {"question":"Billy has # TOREPLACE1. He gave # TOREPLACE1 to a friend. How many does he have now?",
+         "num_needed":1, "num_times_used":0, "operation":"-"},
+        {"question":"In Ally's yard, Ally counts # TOREPLACE1. In Ally's neighbor's yard, she counts # TOREPLACE1. How many more does she have?",
+         "num_needed":1, "num_times_used":0, "operation":"-"}
     ]
 }

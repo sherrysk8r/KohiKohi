@@ -1,0 +1,11 @@
+{
+	"badges":[
+	{"title":"Locked", "explaination": "This badge is still locked", "image":"<img src='images/LockedBadge.png'></img>"},
+    {"title":"KohiKohi Beginner", "explaination": "First game completed", "image":"<img src='images/FirstGameComplete.png'></img>"},
+    {"title":"Puurfect!", "explaination": "Earned 1000 points", "image":"<img src='images/ThousandPoints.png'></img>"},
+    {"title":"Beary Good!", "explaination": "Solved 10 problems in 1 min", "image":"<img src='images/TenProblemsOneMin.png'></img>"},
+    {"title":"Hop to it!", "explaination": "Solved 20 problems", "image":"<img src='images/TwentyProblems.png'></img>"},
+    {"title":"Doggone Good!", "explaination": "Solved 100 problems", "image":"<img src='images/HundredProblems.png'></img>"},
+
+	]
+}
