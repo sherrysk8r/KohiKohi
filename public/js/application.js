@@ -57,6 +57,9 @@ function displayLeaderboard(){
     // read from the leaderboard.json file (where leaderboard data is stored)
     $.getJSON("leaderboard.json", function(responseObject, diditwork) {
         var leaderboard = responseObject.leaders;
+        // Add the user's current score here
+        leaderboard.push({"user":"You", "points_collected":score});
+        console.log(leaderboard);
         // Sort the leaderboard, scores DESC, adapted from Stack Overflow
         // http://stackoverflow.com/questions/979256/sorting-an-array-of-javascript-objects
         leaderboard.sort(function(a, b) {
