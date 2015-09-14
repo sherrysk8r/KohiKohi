@@ -210,6 +210,10 @@ function fillInQuestionTemplate(question){
         var randomNum = Math.ceil((Math.random() * upper_range));
         nums.push(randomNum);
         filled_in_question = replaceAt(filled_in_question, index, randomNum);
+        
+        if (contains(filled_in_question, "#") && question.operation == "-"){
+            upper_range = randomNum;
+        }
 
         var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
         var themeIndex = phrase.substr(phrase.length - 1) - 1;
@@ -219,6 +223,7 @@ function fillInQuestionTemplate(question){
             filled_in_question = replaceAll(filled_in_question, phrase, theme_filler[themeIndex].pluralize);
         }
     }
+    upper_range = 10;
 
     return filled_in_question;
 }
@@ -267,6 +272,9 @@ function computeAnswer(question){
     switch (question.operation){
         case "+":
             current_total = nums.reduce(function(pv, cv) { return pv + cv; }, 0);
+            break;
+        case "-":
+            current_total = nums[0] - nums[1];
             break;
         default:
             current_total = nums.reduce(function(pv, cv) { return pv + cv; }, 0);
