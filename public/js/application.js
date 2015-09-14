@@ -321,7 +321,7 @@ function checkAnswer(){
             score += 100;
         }
         else{
-            Materialize.toast('Not quite. The correct answer is ' + correctAnswer + '.', 2000);
+            Materialize.toast('Not quite. The correct answer is ' + correctAnswer + '.', 2000, 'custom-toast-calc');
             addStrike();
         }
         // Since answer is submitted, we can kill the timer and generate a new question
@@ -330,6 +330,11 @@ function checkAnswer(){
         userInput = null;
         displayUserInput(userInput);
     }    
+    // Since answer is submitted, we can kill the timer and generate a new question
+    generateQuestion();
+    // reset calculator
+    userInput = null;
+    displayUserInput(userInput);
 }
 
 function addStrike(){
