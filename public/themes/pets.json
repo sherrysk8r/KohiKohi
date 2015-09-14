@@ -19,6 +19,8 @@
         {"question":"Kelly has # TOREPLACE1. Her mom has # TOREPLACE2. How many do they have?",
          "num_needed":2, "num_times_used":0, "operation":"+"},
         {"question":"Billy has # TOREPLACE1. He gave # TOREPLACE1 to a friend. How many does he have now?",
+         "num_needed":1, "num_times_used":0, "operation":"-"},
+        {"question":"In Ally's yard, Ally counts # TOREPLACE1. In Ally's neighbor's yard, she counts # TOREPLACE1. How many more does she have?",
          "num_needed":1, "num_times_used":0, "operation":"-"}
     ]
 }

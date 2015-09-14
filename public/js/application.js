@@ -7,7 +7,7 @@ displayText = "";
 question_form =[]; //Stores the different question forms 
 nums = []; //Array stores all the numbers generated in the question 
 userInput = null;
-count=10; // 10 seconds on the clock/timer 
+count=15; // 10 seconds on the clock/timer 
 selected_theme_items = [];
 upper_range = 10;
 strikes = 0;
@@ -176,7 +176,7 @@ function generateQuestion(){
             selectRandomDisplay();
     } ); // getJSON
     //Start the Timer
-    count = 10; //reset count
+    count = 15; //reset count
     if (count == 1){
         $('#timer_countdown').text(count + " second");
     }else{
@@ -214,7 +214,10 @@ function fillInQuestionTemplate(question){
         if (contains(filled_in_question, "#") && question.operation == "-"){
             upper_range = randomNum;
         }
+    }
+    upper_range = 10;
 
+    while(contains(filled_in_question, "TOREPLACE")){
         var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
         var themeIndex = phrase.substr(phrase.length - 1) - 1;
         if(randomNum == 1){
@@ -223,7 +226,6 @@ function fillInQuestionTemplate(question){
             filled_in_question = replaceAll(filled_in_question, phrase, theme_filler[themeIndex].pluralize);
         }
     }
-    upper_range = 10;
 
     return filled_in_question;
 }
