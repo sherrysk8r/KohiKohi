@@ -1,4 +1,6 @@
 //Global Variables
+theme = "";
+subject = "";
 question = "";
 themeItems = [];
 displayText = "";
@@ -18,10 +20,13 @@ $(document).ready(function() {
     $('#go_button').click(function() {
         // get all the inputs into an array.
         var inputs = $('#main-form :selected');
-        window.selectedTheme = inputs[0].text;
-        window.selectedSubject = inputs[1].text;
+        console.log(inputs[0]);
+        sessionStorage.setItem("theme", inputs[0].value);
+        sessionStorage.setItem("subject", inputs[1].value);
         window.location = "/problem.html";
     });
+    theme = sessionStorage.getItem("theme");
+    subject = sessionStorage.getItem("subject");
 
     $(".calc-submit").css('background-color', "#9e9e9e");
 
@@ -155,7 +160,8 @@ function generateQuestion(){
     }
     question_form = [];
     nums = [];
-    $.getJSON("themes/animals.json", function(responseObject, diditwork) {
+    var fileName = "themes/" + theme + ".json";
+    $.getJSON(fileName, function(responseObject, diditwork) {
             //Randomly select a question from the repository
             var randomizedQuestionIndex = Math.floor(Math.random() * responseObject.questions.length);
             question = responseObject.questions[randomizedQuestionIndex];
@@ -200,16 +206,18 @@ function fillInQuestionTemplate(question){
     
     nums = [];
     while(contains(filled_in_question, "#")){
-        var index = filled_in_question.search(/#/gi);
+        var index = filled_in_question.search(/# TOREPLACE\d/gi);
         var randomNum = Math.ceil((Math.random() * upper_range));
         nums.push(randomNum);
         filled_in_question = replaceAt(filled_in_question, index, randomNum);
-    }
-        
-    while (contains(filled_in_question, "TOREPLACE")){
+
         var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
-        var animalIndex = phrase.substr(phrase.length - 1) - 1;
-        filled_in_question = replaceAll(filled_in_question, phrase, theme_filler[animalIndex].pluralize);
+        var themeIndex = phrase.substr(phrase.length - 1) - 1;
+        if(randomNum == 1){
+            filled_in_question = replaceAll(filled_in_question, phrase, theme_filler[themeIndex].name);
+        }else{
+            filled_in_question = replaceAll(filled_in_question, phrase, theme_filler[themeIndex].pluralize);
+        }
     }
 
     return filled_in_question;
