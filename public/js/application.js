@@ -35,7 +35,7 @@ $(document).ready(function() {
             userCalcInput($(this).text());        
         });
         $( ".calc-submit" ).click(checkAnswer);
-        $("#leaderboard").click(displayLeaderboard);
+        $("#leaderboard").click(displayLeaderboard(false));
     }
 
     // Modal triggers on the problem.html page 
@@ -54,17 +54,22 @@ $(document).ready(function() {
 });
 
 // Populate the Leaderboard Modal
-function displayLeaderboard(){
+function displayLeaderboard(isGameOver, final_score){
     // read from the leaderboard.json file (where leaderboard data is stored)
     $.getJSON("leaderboard.json", function(responseObject, diditwork) {
         var leaderboard = responseObject.leaders;
+        // Add the user's current score here
+        if(isGameOver===true){
+            leaderboard.push({"user":"You", "points_collected":final_score});
+        }
+        console.log(leaderboard);
         // Sort the leaderboard, scores DESC, adapted from Stack Overflow
         // http://stackoverflow.com/questions/979256/sorting-an-array-of-javascript-objects
         leaderboard.sort(function(a, b) {
             return parseFloat(b.points_collected) - parseFloat(a.points_collected);
         });
         // Populate the table using the sorted leaderboard data 
-        var displayTable = "<table class='bordered'><th>KohiKohi Rock Stars<\/th><th>High Score<\/th><\/tr>";
+        var displayTable = "<table class='striped'><th>KohiKohi Rock Stars<\/th><th>High Score<\/th><\/tr>";
         for (var i = 0; i<leaderboard.length; i++) {
             // create a new row in the table
             displayTable += "<tr>";
@@ -74,7 +79,7 @@ function displayLeaderboard(){
             displayTable += "<\/tr>";
                 }
         displayTable += "<\/table>";
-        $("#leaderboard_table").html(displayTable);
+        $(".leaderboard_table").html(displayTable);
     } ); // getJSON
 }
 
@@ -325,13 +330,13 @@ function isGameOver(){
 }
 
 function gameOver(){
-    clearInterval(counter);
     $('#finalScore').html(score);
+    displayLeaderboard(true, score);
     $('#endGame').openModal({
-        dismissible: true,
+        dismissible: false,
         opacity: .5
     });
-    $("#playAgain").click(startNewGame());
+    $("#playAgain").click(startNewGame);
 }
 
 function startNewGame(){
