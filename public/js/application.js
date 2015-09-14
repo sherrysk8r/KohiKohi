@@ -1,13 +1,11 @@
 //Global Variables
-theme = "";
-subject = "";
 question = "";
 themeItems = [];
 displayText = "";
 question_form =[]; //Stores the different question forms 
 nums = []; //Array stores all the numbers generated in the question 
 userInput = null;
-count=10; // 10 seconds on the clock/timer 
+count=15; // 10 seconds on the clock/timer 
 selected_theme_items = [];
 upper_range = 10;
 strikes = 0;
@@ -20,13 +18,10 @@ $(document).ready(function() {
     $('#go_button').click(function() {
         // get all the inputs into an array.
         var inputs = $('#main-form :selected');
-        console.log(inputs[0]);
-        sessionStorage.setItem("theme", inputs[0].value);
-        sessionStorage.setItem("subject", inputs[1].value);
+        window.selectedTheme = inputs[0].text;
+        window.selectedSubject = inputs[1].text;
         window.location = "/problem.html";
     });
-    theme = sessionStorage.getItem("theme");
-    subject = sessionStorage.getItem("subject");
 
     $(".calc-submit").css('background-color', "#9e9e9e");
 
@@ -160,8 +155,7 @@ function generateQuestion(){
     }
     question_form = [];
     nums = [];
-    var fileName = "themes/" + theme + ".json";
-    $.getJSON(fileName, function(responseObject, diditwork) {
+    $.getJSON("themes/animals.json", function(responseObject, diditwork) {
             //Randomly select a question from the repository
             var randomizedQuestionIndex = Math.floor(Math.random() * responseObject.questions.length);
             question = responseObject.questions[randomizedQuestionIndex];
@@ -176,7 +170,7 @@ function generateQuestion(){
             selectRandomDisplay();
     } ); // getJSON
     //Start the Timer
-    count = 10; //reset count
+    count = 15; //reset count
     if (count == 1){
         $('#timer_countdown').text(count + " second");
     }else{
@@ -206,18 +200,20 @@ function fillInQuestionTemplate(question){
     
     nums = [];
     while(contains(filled_in_question, "#")){
-        var index = filled_in_question.search(/# TOREPLACE\d/gi);
+        var index = filled_in_question.search(/#/gi);
         var randomNum = Math.ceil((Math.random() * upper_range));
         nums.push(randomNum);
         filled_in_question = replaceAt(filled_in_question, index, randomNum);
-
-        var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
-        var themeIndex = phrase.substr(phrase.length - 1) - 1;
-        if(randomNum == 1){
-            filled_in_question = replaceAll(filled_in_question, phrase, theme_filler[themeIndex].name);
-        }else{
-            filled_in_question = replaceAll(filled_in_question, phrase, theme_filler[themeIndex].pluralize);
+        if (contains(filled_in_question, "#")&&question.operation=="-"){
+            upper_range = randomNum;
         }
+    }
+    upper_range = 10;
+        
+    while (contains(filled_in_question, "TOREPLACE")){
+        var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
+        var animalIndex = phrase.substr(phrase.length - 1) - 1;
+        filled_in_question = replaceAll(filled_in_question, phrase, theme_filler[animalIndex].pluralize);
     }
 
     return filled_in_question;
@@ -257,6 +253,7 @@ function returnThemeItems(num_needed, themeItems){
         var themeItem = themeItems[randomizedIndex];
         selected_theme_items.push(themeItem);
     }
+    console.log(selected_theme_items);
     return selected_theme_items;
 }
 
@@ -269,7 +266,7 @@ function computeAnswer(question){
             current_total = nums.reduce(function(pv, cv) { return pv + cv; }, 0);
             break;
         default:
-            current_total = nums.reduce(function(pv, cv) { return pv + cv; }, 0);
+            current_total = nums[0]-nums[1];
     }
     return current_total;
 }
