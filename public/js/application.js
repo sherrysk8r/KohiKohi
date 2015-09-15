@@ -29,7 +29,8 @@ $(document).ready(function() {
     subject = sessionStorage.getItem("subject");
 
     $(".calc-submit").css('background-color', "#9e9e9e");
-
+    $('.tooltipped').tooltip({delay: 50});
+    
     if (window.location.pathname == '/problem.html') {
         startNewGame();
         // Listeners
