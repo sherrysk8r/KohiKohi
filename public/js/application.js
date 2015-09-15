@@ -201,18 +201,14 @@ function generateEquation(question){
 function fillInQuestionTemplate(question){
     var filled_in_question = question.question;
     var theme_filler = returnThemeItems(question.num_needed, themeItems);
-    console.log(theme_filler);
 
     nums = [];
     while(contains(filled_in_question, "# TOREPLACE")){
         var index = filled_in_question.search(/# TOREPLACE\d/);
-        console.log(index);
         var phraseToSub = filled_in_question.match(/# TOREPLACE\d/);
-        console.log(phraseToSub);
         phraseToSub = phraseToSub.toString();
         var themeIndex = phraseToSub.substr(phraseToSub.length-1) -1;
-        console.log(theme_filler[themeIndex]);
-
+        
         var randomNum = Math.ceil(Math.random() * upper_range);
         var result;
         nums.push(randomNum);
@@ -230,70 +226,7 @@ function fillInQuestionTemplate(question){
         }
     }
 
-    //Parse through the question and fill in the blanks with randomized numbers and themes
-    // Keep track of the index of all the #s in the blank questions
-    
-    // nums = [];
-    // while(contains(filled_in_question, "#")){
-    //     var index = filled_in_question.search(/# TOREPLACE\d/gi);
-    //     // var phraseToSub = filled_in_question.match(/TOREPLACE\d/i);
-    //     // phraseToSub = phraseToSub[0];
-
-    //     // var themeIndex = phraseToSub.substr(index.length-1) -1;
-    //     // console.log(themeIndex);
-
-    //     // var selectedTheme = theme_filler[themeIndex];
-    //     // console.log(selectedTheme);
-    //     // var phraseResult = "";
-        
-    //     var randomNum = Math.ceil((Math.random() * upper_range));
-    //     nums.push(randomNum);
-    //     filled_in_question = replaceAt(filled_in_question, index, randomNum);
-    //     // if (randomNum == 1){
-    //     //     phraseResult = randomNum + " " + selectedTheme.name;
-    //     // }else{
-    //     //     phraseResult = randomNum + " " + selectedTheme.pluralize;
-    //     // }
-
-    //     // filled_in_question = filled_in_question.substr(0, phraseIndex) + phraseResult + filled_in_question.substr(phraseIndex+10,filled_in_question.length);
-        
-        
-    // }
     upper_range = 10;
-
-    // // var phraseIndex = filled_in_question.search(/TOREPLACE\d/i);
-    // // var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
-    // // var themeIndex = phrase.substr(phrase.length - 1) - 1;
-
-    // // if (nums[0] == 1){
-    // //     filled_in_question = filled_in_question.substr(0, phraseIndex) + theme_filler[themeIndex].name + filled_in_question.substr(phraseIndex+10,filled_in_question.length);
-    // // }
-    // // else{
-    // //     filled_in_question = filled_in_question.substr(0, phraseIndex) + theme_filler[themeIndex].pluralize + filled_in_question.substr(phraseIndex+10,filled_in_question.length);
-    // // }
-
-    // // var phraseIndex = filled_in_question.search(/TOREPLACE\d/i);
-    // // var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
-    // // var themeIndex = phrase.substr(phrase.length - 1) - 1;
-
-    // // console.log(phrase);
-    // // console.log(phraseIndex);
-    // // if (nums[1] == 1){
-    // //     filled_in_question = filled_in_question.substr(0, phraseIndex) + theme_filler[themeIndex].name + filled_in_question.substr(phraseIndex+10,filled_in_question.length);
-    // //     console.log(filled_in_question);
-    // // }
-    // // else{
-    // //     filled_in_question = filled_in_question.substr(0, phraseIndex) + theme_filler[themeIndex].pluralize + filled_in_question.substr(phraseIndex+10,filled_in_question.length);
-    // //     console.log(filled_in_question);
-    // // }
-
-    
-    
-    // while(contains(filled_in_question, "TOREPLACE")){
-    //     var phrase = filled_in_question.match(/TOREPLACE\d/i)[0];
-    //     var themeIndex = phrase.substr(phrase.length - 1) - 1;
-    //     filled_in_question = replaceAll(filled_in_question, phrase, theme_filler[themeIndex].pluralize);
-    // }
 
     return filled_in_question;
 }
