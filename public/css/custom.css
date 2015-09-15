@@ -143,14 +143,16 @@ p.equation-form{
     float: center;
     padding: 0 23em;
 }
+
+.custom-toast-calc{
+	color: orange;
+	font-size: 1.5rem;
+}
+
 #strikes{
 	display: inline-block;
 	margin-top: .5em;
 }
 .align-bottom{
 	vertical-align: bottom;
-}
-
-#leaderboard_table table th{
-	color:rgb(26, 139, 255);
 }
